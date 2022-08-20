@@ -1,0 +1,113 @@
+<app-admin-nav></app-admin-nav>
+
+<div class="container pt-4" id="main-container">
+  <button type="button" class="btn btn-success" (click)="onOpenModalRoles(null, 'add')">Add new</button>
+  <hr>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Role Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let role of roles; let i = index">
+      <th scope="row">{{i + 1}}</th>
+      <td><span class="link-primary" role="button" (click)="onOpenModalRoles(role, 'edit')">{{ role.roleId }}</span></td>
+      <td>{{ role.roleName }}</td>
+      <td>{{ role.roleDescription }}</td>
+      <td>
+        <button type="button" class="btn btn-danger" (click)="onOpenModalRoles(role, 'delete')">Danger</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!--ADD ROLE MODAL-->
+<div class="modal" tabindex="-1" id="addRoleModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add a role</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #addForm="ngForm" (ngSubmit)="onAddRole(addForm)">
+          <div class="mb-3">
+            <label for="roleId" class="form-label">Role ID</label>
+            <input type="text" ngModel name="roleId" class="form-control" id="roleId" aria-describedby="basic-addon1" required>
+          </div>
+          <div class="mb-3">
+            <label for="roleName" class="form-label">Role Name</label>
+            <input type="text" ngModel name="roleName" class="form-control" id="roleName" aria-describedby="basic-addon1" required>
+          </div>
+          <div class="mb-3">
+            <label for="roleDescription" class="form-label">Role Description</label>
+            <input type="text" ngModel name="roleDescription" class="form-control" id="roleDescription" aria-describedby="basic-addon1" required>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="role-close-button">Close</button>
+            <button [disabled]="addForm.form.invalid" type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--DELETE ROLE MODAL-->
+<div class="modal" tabindex="-1" id="deleteRoleModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete role</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete?</p>
+        <form>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Delete</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--EDIT ROLE MODAL-->
+<div class="modal" tabindex="-1" id="editRoleModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update role</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #editForm="ngForm" (ngSubmit)="onUpdateRole(editForm)">
+          <div class="mb-3">
+            <label for="roleId" class="form-label">Role ID</label>
+            <input type="text" ngModel="{{ editRole?.roleId}}" name="roleId" class="form-control" id="updatedRoleId" aria-describedby="basic-addon1" required readonly>
+          </div>
+          <div class="mb-3">
+            <label for="roleName" class="form-label">Role Name</label>
+            <input type="text" ngModel="{{ editRole?.roleName}}" name="roleName" class="form-control" id="updatedRoleName" aria-describedby="basic-addon1" required>
+          </div>
+          <div class="mb-3">
+            <label for="roleDescription" class="form-label">Role Description</label>
+            <input type="text" ngModel="{{ editRole?.roleDescription}}" name="roleDescription" class="form-control" id="updatedRoleDescription" aria-describedby="basic-addon1" required>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="updated-role-close-button">Close</button>
+            <button [disabled]="editForm.form.invalid" type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
