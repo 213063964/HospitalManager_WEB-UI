@@ -28,5 +28,4 @@ export class RoleService {
   public deleteRole(roleId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}role/delete/${roleId}`)
   }
-
 }

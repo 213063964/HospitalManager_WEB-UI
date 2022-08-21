@@ -14,6 +14,7 @@ export class AdminListViewRolesComponent implements OnInit {
 
   public roles: Role[];
   public editRole: Role;
+  public deleteRole: Role;
 
   constructor(private roleService: RoleService) { }
 
@@ -46,26 +47,25 @@ export class AdminListViewRolesComponent implements OnInit {
   }
 
   public onOpenModalRoles(role: Role, mode: string): void {
-    const container = document.getElementById('main-container')
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.style.display = 'none';
-    button.setAttribute("data-bs-toggle", 'modal');
+    const container = document.getElementById('main-container-role')
+    const buttonRole = document.createElement('button');
+    buttonRole.type = 'button';
+    buttonRole.style.display = 'none';
+    buttonRole.setAttribute("data-bs-toggle", 'modal');
     if (mode === 'add') {
-      button.setAttribute("data-bs-target", '#addRoleModal');
+      buttonRole.setAttribute("data-bs-target", '#addRoleModal');
     }
     if (mode === 'edit') {
       this.editRole = role;
-      button.setAttribute("data-bs-target", '#editRoleModal');
+      buttonRole.setAttribute("data-bs-target", '#editRoleModal');
     }
     if (mode === 'delete') {
-      button.setAttribute("data-bs-target", '#deleteRoleModal');
+      this.deleteRole = role;
+      buttonRole.setAttribute("data-bs-target", '#deleteRoleModal');
     }
 
-    container.appendChild(button);
-    button.click();
-
-    console.log(role);
+    container.appendChild(buttonRole);
+    buttonRole.click();
   }
 
   public onUpdateRole(editForm: NgForm): void {
@@ -80,5 +80,15 @@ export class AdminListViewRolesComponent implements OnInit {
     );
   }
 
+  public onDeleteRole(roleId: string): void {
+    document.getElementById('delete-modal-close').click();
+    this.roleService.deleteRole(roleId).subscribe(
+      (response: void) => {
+        this.getRoles();
+      },
+      (error: HttpErrorResponse) => {
 
+      }
+    );
+  }
 }

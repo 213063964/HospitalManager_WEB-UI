@@ -7,7 +7,7 @@ import {AdminListViewRolesComponent} from "./admin-list-view-roles/admin-list-vi
 const routes: Routes = [
   {path:'', redirectTo: 'login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
-  {path: 'admin-list', component: AdminListViewComponent},
+  {path: 'admin-list-employees', component: AdminListViewComponent},
   {path: 'admin-list-roles', component: AdminListViewRolesComponent}
 ];
 
