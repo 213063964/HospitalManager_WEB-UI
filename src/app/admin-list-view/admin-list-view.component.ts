@@ -15,8 +15,9 @@ export class AdminListViewComponent implements OnInit {
 
   public employees: Employee[];
   public roles: Role[];
-  public selectedRole: Role;
+  public selectedRole: string = 'Select Role';
   public deleteEmployee: Employee;
+  public editEmployee: Employee;
 
   constructor(private employeeService: EmployeeService, private roleService: RoleService) { }
 
@@ -70,10 +71,10 @@ export class AdminListViewComponent implements OnInit {
     if (mode === 'add') {
       buttonEmployee.setAttribute("data-bs-target", '#addEmployeeModal');
     }
-    // if (mode === 'edit') {
-    //   this.editRole = role;
-    //   buttonEmployee.setAttribute("data-bs-target", '#editRoleModal');
-    // }
+    if (mode === 'edit') {
+      this.editEmployee = employee;
+      buttonEmployee.setAttribute("data-bs-target", '#editEmployeeModal');
+    }
     if (mode === 'delete') {
       this.deleteEmployee = employee;
       buttonEmployee.setAttribute("data-bs-target", '#deleteEmployeeModal');
@@ -91,10 +92,20 @@ export class AdminListViewComponent implements OnInit {
         this.getEmployees();
       },
       (error: HttpErrorResponse) => {
-
       }
     );
   }
 
+  public onUpdateEmployee(editEmployeeForm: NgForm): void {
+    // document.getElementById('updated-role-close-button').click();
+    // this.roleService.addRole(editEmployeeForm.value).subscribe(
+    //   (response: Role) => {
+    //     this.getRoles();
+    //   },
+    //   (error: HttpErrorResponse) => {
+    //     alert(error.message)
+    //   }
+    // );
+  }
 
 }
