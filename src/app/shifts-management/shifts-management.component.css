@@ -1,0 +1,15 @@
+.wrapper{
+    padding: 2% 10%;
+}
+
+#shiftsHeading {
+    margin-bottom: 3%;
+}
+
+#createShiftBtnId{
+    margin-bottom: 1%;
+}
+
+.modal{
+    display: none;
+}

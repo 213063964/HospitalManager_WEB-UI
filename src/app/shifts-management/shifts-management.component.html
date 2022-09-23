@@ -1,1 +1,147 @@
-<p>shifts-management works!</p>
+<app-admin-nav></app-admin-nav>
+<div class="wrapper">
+  <h2 id="shiftsHeading">Shifts Management Area</h2>
+  <button (click)="showCreateShiftModal()" id="createShiftBtnId" class="btn btn-primary" >Create Shift</button>
+
+  <table class="table table-light">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Shift Start Time</th>
+        <th scope="col">Shift End Time</th>
+        <th scope="col">Shift Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr (click)="showEditShiftModal(shift)" *ngFor="let shift of shifts; let i = index">
+        <!-- <th scope="row">{{ shift.shiftId }}</th> -->
+        <td>{{ shift.shiftId ?? "" }}</td>
+        <td>{{ shift.shiftStartTime ?? "" }}</td>
+        <td>{{ shift.shiftEndTime ?? "" }}</td>
+        <td>{{ shift.shiftType ?? "" }}</td>
+        <div><button class="btn btn-danger" (click)="deleteShift(shift)">delete</button></div>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<div class="addShiftModal">
+  <!--Add Shifts Modal-->
+  <div id="modalId" class="modal" tabindex="-1">
+    <div class="modal-dialog" id="addShiftModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Create Shift</h5>
+          <button (click)="closeCreateShiftModal()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="shiftsForm" (ngSubmit)="submitShift()">
+
+            <div class="mb-3">
+              <label for="Shift Start Time" class="form-label">Shift Start Time</label>
+              <input type="time" formControlName="shiftStartTime" class="form-control" id="shiftStartTimeId"
+                aria-describedby="basic-addon1" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="shiftEndTime" class="form-label">Shift End Time</label>
+              <input type="time" formControlName="shiftEndTime" class="form-control" id="shiftEndTimeId" aria-describedby="basic-addon1"
+                required>
+            </div>
+
+            <div class="mb-3">
+              <label for="Shift Type" class="form-label">Shift Type</label>
+              <input type="text" formControlName="shiftType" class="form-control" id="surname"
+                aria-describedby="basic-addon1" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="Shift Employees" class="form-label">Shift Employees</label>
+              <select [(ngModel)]="shift.shiftEmployees" formControlName="employees" class="form-select" aria-label="Default select example" id="shiftEmployeeId" required>
+                <option *ngFor="let employee of shift.shiftEmployees" [ngValue]="shift" (click)="pickShiftEmployee(employee, 'createModal')" >{{ employee.name + " " + employee.surname}} - {{ employee.role.roleName }}</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="Shift Employees" class="form-label">Selected Shift Employees</label>
+              <select [(ngModel)]="selectedShiftEmployeesList" formControlName="selectedShiftEmployees" class="form-select" aria-label="Default select example" id="shiftEmployeeId" required>
+                <option *ngFor="let employee of selectedShiftEmployeesList" [ngValue]="employee" >{{ employee.name + " " + employee.surname}} - {{ employee.role.roleName }}</option>
+              </select>
+            </div>
+
+            <div class="modal-footer">
+              <button (click)="closeCreateShiftModal()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button  type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="editShiftModal">
+  <!--Edit Shifts Modal-->
+  <div id="editModalId" class="modal" tabindex="-1">
+    <div class="modal-dialog" id="addShiftModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Update Shift</h5>
+          <button (click)="closeEditShiftModal()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="editShiftsForm" (ngSubmit)="submitUpdatedShift()">
+
+            <div class="mb-3">
+              <label for="Shift Start Time" class="form-label">Shift Start Time</label>
+              <input type="time" formControlName="shiftStartTime" class="form-control" id="shiftStartTimeId"
+                aria-describedby="basic-addon1" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="shiftEndTime" class="form-label">Shift End Time</label>
+              <input type="time" formControlName="shiftEndTime" class="form-control" id="shiftEndTimeId" aria-describedby="basic-addon1"
+                required>
+            </div>
+
+            <div class="mb-3">
+              <label for="Shift Type" class="form-label">Shift Type</label>
+              <input type="text" formControlName="shiftType" class="form-control" id="surname"
+                aria-describedby="basic-addon1" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="Shift Employees" class="form-label">Shift Employees</label>
+              <select [(ngModel)]="shift.shiftEmployees" formControlName="employees" class="form-select" aria-label="Default select example" id="shiftEmployeeId" required>
+                <option *ngFor="let employee of shift.shiftEmployees" [ngValue]="shift" (click)="pickShiftEmployee(employee, 'editModal')" >{{ employee.name + " " + employee.surname}} - {{ employee.role.roleName }}</option>
+              </select>
+            </div>
+
+            <!-- <div class="mb-3">
+              <label for="Shift Employees" class="form-label">Selected Shift Employees</label>
+              <select [(ngModel)]="selectedShiftEmployeesList" formControlName="selectedShiftEmployees" class="form-select" aria-label="Default select example" required>
+                <option *ngFor="let employee of selectedShiftEmployeesList" [ngValue]="employee" >{{ employee.name + " " + employee.surname}} - {{ employee.role.roleName }}</option>
+              </select>
+            </div> -->
+
+            <div class="mb-3">
+              <h3 class="selectedShiftEmployee" *ngFor="let employee of selectedShiftEmployeesList" >
+                {{ employee.name + " " + employee.surname}} - {{ employee.role.roleName }}
+              </h3>
+            </div>
+
+            <div class="modal-footer">
+              <button (click)="closeEditShiftModal()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button  type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
