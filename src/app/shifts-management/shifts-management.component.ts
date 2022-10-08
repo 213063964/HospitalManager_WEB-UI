@@ -42,8 +42,8 @@ export class ShiftsManagementComponent implements OnInit {
 
   shifts: Array<IShift> = new Array<IShift>();
   employees: Array<Employee> = new Array<Employee>();
-
   selectedShiftEmployeesList: Array<Employee> = [];
+  employeesInList: Array<string> = [];
 
   constructor(private shiftService: ShiftService, private employeeService: EmployeeService) 
   { }
@@ -143,18 +143,27 @@ export class ShiftsManagementComponent implements OnInit {
 
   pickShiftEmployee(employee: Employee, location: string)
   {
+    console.log(location);
+    let selection: any = document.getElementById("selectedShiftEmployeeId");
+    if(this.isEmployeeInShiftList(employee))
+    {
+      window.alert("Cannot add the same employee twice!");
+      return;
+    }
+    
+    this.employeesInList.push(employee.employeeId);
+
     if(location.match("editModal"))
     {
-      this.selectedShiftEmployeesList.push(employee);
-      this.editShiftsForm.patchValue({
-        selectedShiftEmployees: this.selectedShiftEmployeesList ?? null
-      });
+      // if(this.isEmployeeInShiftList(employee))
+      // {
+      //   window.alert("Cannot add the same employee twice!");
+      //   return;
+      // }
+      this.putEmployeeInSchedule(employee, selection);
+      return;
     }
-    this.selectedShiftEmployeesList.push(employee);
-    this.shiftsForm.patchValue({
-      selectedShiftEmployees: this.selectedShiftEmployeesList ?? null
-    });
-    
+    this.putEmployeeInSchedule(employee, selection);
   }
 
   showCreateShiftModal()
@@ -185,4 +194,24 @@ export class ShiftsManagementComponent implements OnInit {
   {
     document.getElementById('editModalId').style.display = "none";
   }
+
+  private putEmployeeInSchedule(employee: Employee, selection: any)
+  {
+    this.selectedShiftEmployeesList.push(employee);
+    selection.add(new Option(`${employee.name}  ${employee.surname} - ${employee.role.roleName}`, ""));
+    this.editShiftsForm.patchValue({
+      selectedShiftEmployees: this.selectedShiftEmployeesList ?? null
+    });
+  }
+
+  private isEmployeeInShiftList(employee: Employee)
+  {
+    let doesExist = false;
+    this.employeesInList.forEach(employeeId => {
+      if(employeeId === employee.employeeId) doesExist = true;
+    });
+    return doesExist;
+  }
+
+
 }

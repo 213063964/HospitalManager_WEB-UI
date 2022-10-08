@@ -65,7 +65,7 @@
 
             <div class="mb-3">
               <label for="Shift Employees" class="form-label">Selected Shift Employees</label>
-              <select [(ngModel)]="selectedShiftEmployeesList" formControlName="selectedShiftEmployees" class="form-select" aria-label="Default select example" id="shiftEmployeeId" required>
+              <select [(ngModel)]="selectedShiftEmployeesList" formControlName="selectedShiftEmployees" class="form-select" aria-label="Default select example" id="selectedShiftEmployeeId" required>
                 <option *ngFor="let employee of selectedShiftEmployeesList" [ngValue]="employee" >{{ employee.name + " " + employee.surname}} - {{ employee.role.roleName }}</option>
               </select>
             </div>
@@ -120,17 +120,11 @@
               </select>
             </div>
 
-            <!-- <div class="mb-3">
+            <div class="mb-3">
               <label for="Shift Employees" class="form-label">Selected Shift Employees</label>
-              <select [(ngModel)]="selectedShiftEmployeesList" formControlName="selectedShiftEmployees" class="form-select" aria-label="Default select example" required>
+              <select [(ngModel)]="selectedShiftEmployeesList" formControlName="selectedShiftEmployees" class="form-select" aria-label="Default select example" id="selectedShiftEmployeeId" required>
                 <option *ngFor="let employee of selectedShiftEmployeesList" [ngValue]="employee" >{{ employee.name + " " + employee.surname}} - {{ employee.role.roleName }}</option>
               </select>
-            </div> -->
-
-            <div class="mb-3">
-              <h3 class="selectedShiftEmployee" *ngFor="let employee of selectedShiftEmployeesList" >
-                {{ employee.name + " " + employee.surname}} - {{ employee.role.roleName }}
-              </h3>
             </div>
 
             <div class="modal-footer">
