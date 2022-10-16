@@ -4,6 +4,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {Role} from "../models/role.model";
 import {RoleService} from "../services/role.service";
 import {NgForm} from "@angular/forms";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-admin-list-view-roles',
@@ -16,7 +17,7 @@ export class AdminListViewRolesComponent implements OnInit {
   public editRole: Role;
   public deleteRole: Role;
 
-  constructor(private roleService: RoleService) { }
+  constructor(private roleService: RoleService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getRoles();
@@ -28,7 +29,7 @@ export class AdminListViewRolesComponent implements OnInit {
         this.roles = response;
       },
       (error: HttpErrorResponse) => {
-        alert(error.message)
+        this.showToastrError("Unable to retrieve roles", "Roles not retrieved")
       }
     )
   }
@@ -40,7 +41,7 @@ export class AdminListViewRolesComponent implements OnInit {
         this.getRoles();
       },
       (error: HttpErrorResponse) => {
-        alert(error.message)
+        this.showToastrError("Error while adding record. Ensure that all information is correct", "Save Unsuccessful")
       }
   );
     addForm.reset();
@@ -75,7 +76,7 @@ export class AdminListViewRolesComponent implements OnInit {
         this.getRoles();
       },
       (error: HttpErrorResponse) => {
-        alert(error.message)
+        this.showToastrError("Error while updating record. Make sure information is valid", "Update Failed")
       }
     );
   }
@@ -87,8 +88,16 @@ export class AdminListViewRolesComponent implements OnInit {
         this.getRoles();
       },
       (error: HttpErrorResponse) => {
-
+        this.showToastr("Cannot delete as Employee is associated to this role", "Record Associated");
       }
     );
+  }
+
+  showToastr(message: string, title: string){
+    this.toastr.warning(message, title);
+  }
+
+  showToastrError(message: string, title: string){
+    this.toastr.error(message, title);
   }
 }

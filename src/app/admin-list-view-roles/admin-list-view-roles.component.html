@@ -39,15 +39,15 @@
         <form #addForm="ngForm" (ngSubmit)="onAddRole(addForm)">
           <div class="mb-3">
             <label for="roleId" class="form-label">Role ID</label>
-            <input type="text" ngModel name="roleId" class="form-control" id="roleId" aria-describedby="basic-addon1" required>
+            <input type="text" ngModel pattern = "[0-9]*" name="roleId" class="form-control" id="roleId" aria-describedby="basic-addon1" required>
           </div>
           <div class="mb-3">
             <label for="roleName" class="form-label">Role Name</label>
-            <input type="text" ngModel name="roleName" class="form-control" id="roleName" aria-describedby="basic-addon1" required>
+            <input type="text" ngModel pattern = "[a-zA-Z ]*" name="roleName" class="form-control" id="roleName" aria-describedby="basic-addon1" required>
           </div>
           <div class="mb-3">
             <label for="roleDescription" class="form-label">Role Description</label>
-            <input type="text" ngModel name="roleDescription" class="form-control" id="roleDescription" aria-describedby="basic-addon1" required>
+            <input type="text" ngModel pattern = "[a-zA-Z ]*" name="roleDescription" class="form-control" id="roleDescription" aria-describedby="basic-addon1" required>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="role-close-button">Close
@@ -93,17 +93,17 @@
         <form #editForm="ngForm" (ngSubmit)="onUpdateRole(editForm)">
           <div class="mb-3">
             <label for="roleId" class="form-label">Role ID</label>
-            <input type="text" ngModel="{{ editRole?.roleId}}" name="roleId" class="form-control" id="updatedRoleId"
+            <input type="text" ngModel="{{ editRole?.roleId}}" pattern = "[0-9]*" name="roleId" class="form-control" id="updatedRoleId"
                    aria-describedby="basic-addon1" required readonly>
           </div>
           <div class="mb-3">
             <label for="roleName" class="form-label">Role Name</label>
-            <input type="text" ngModel="{{ editRole?.roleName}}" name="roleName" class="form-control"
+            <input type="text" ngModel="{{ editRole?.roleName}}" pattern = "[a-zA-Z ]*" name="roleName" class="form-control"
                    id="updatedRoleName" aria-describedby="basic-addon1" required>
           </div>
           <div class="mb-3">
             <label for="roleDescription" class="form-label">Role Description</label>
-            <input type="text" ngModel="{{ editRole?.roleDescription}}" name="roleDescription" class="form-control"
+            <input type="text" ngModel="{{ editRole?.roleDescription}}" pattern = "[a-zA-Z ]*" name="roleDescription" class="form-control"
                    id="updatedRoleDescription" aria-describedby="basic-addon1" required>
           </div>
           <div class="modal-footer">

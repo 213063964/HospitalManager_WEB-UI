@@ -8,14 +8,14 @@
               <h2 class="fw-bold mb-2 text-uppercase">Hospital Manager</h2>
               <p class="text-white-50 mb-5">Please enter your login and password!</p>
               <div class="form-outline form-white mb-4">
-                <input type="email" id="typeEmailX" class="form-control form-control-lg" />
-                <label class="form-label" for="typeEmailX">Username</label>
+                <input type="text" [(ngModel)]="employeeId" id="username" class="form-control form-control-lg" />
+                <label class="form-label" for="username">Username</label>
               </div>
               <div class="form-outline form-white mb-4">
-                <input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                <label class="form-label" for="typePasswordX">Password</label>
+                <input type="password" [(ngModel)]="password" id="password" class="form-control form-control-lg" />
+                <label class="form-label" for="password">Password</label>
               </div>
-              <button class="btn btn-outline-light btn-lg px-5" type="submit" routerLink="/admin-list-employees" routerLinkActive="active">Login as admin</button>
+              <button class="btn btn-outline-light btn-lg px-5" id="admin-login" type="submit" [routerLink]=routerLinkLogin routerLinkActive="active" (click)="onReadEmployee(employeeId)">Login as admin</button>
               <br>
               <br>
               <button class="btn btn-outline-light btn-lg px-5" type="submit">Login as user</button>

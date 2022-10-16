@@ -42,34 +42,26 @@
 
           <div class="mb-3">
             <label for="employeeId" class="form-label">Employee Id</label>
-            <input type="text" ngModel name="employeeId" class="form-control" id="employeeId"
-                   aria-describedby="basic-addon1" required>
+            <input type="text" ngModel pattern = "[0-9]*" name="employeeId" class="form-control"  id="employeeId" aria-describedby="basic-addon1"  required >
           </div>
 
           <div class="mb-3">
             <label for="role" class="form-label">Role</label>
-            <select ngModel name="role" class="form-select" aria-label="Default select example"
-                    id="role" required>
+            <select ngModel name="role" class="form-select" aria-label="Default select example" id="role" required>
               <option *ngFor="let role of roles" [ngValue]=role>{{ role.roleId }} - {{ role.roleName }}</option>
             </select>
           </div>
 
           <div class="mb-3">
             <label for="name" class="form-label">Name</label>
-            <input type="text" ngModel name="name" class="form-control" id="name" aria-describedby="basic-addon1"
+            <input type="text" ngModel pattern = "[a-zA-Z ]*" name="name" class="form-control" id="name" aria-describedby="basic-addon1"
                    required>
           </div>
 
           <div class="mb-3">
             <label for="surname" class="form-label">Surname</label>
-            <input type="text" ngModel name="surname" class="form-control" id="surname" aria-describedby="basic-addon1"
+            <input type="text" ngModel pattern = "[a-zA-Z ]*" name="surname" class="form-control" id="surname" aria-describedby="basic-addon1"
                    required>
-          </div>
-
-          <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" ngModel name="username" class="form-control" id="username"
-                   aria-describedby="basic-addon1" required>
           </div>
 
           <div class="mb-3">
@@ -122,32 +114,26 @@
 
           <div class="mb-3">
             <label for="updatedEmployeeId" class="form-label">Employee ID</label>
-            <input type="text" ngModel="{{ editEmployee?.employeeId}}" name="employeeId" class="form-control" id="updatedEmployeeId"
+            <input type="text" ngModel="{{ editEmployee?.employeeId}}" pattern = "[0-9]*" name="employeeId" class="form-control" id="updatedEmployeeId"
                    aria-describedby="basic-addon1" required readonly>
           </div>
 
           <div class="mb-3">
             <label for="updatedEmployeeRole" class="form-label">Role</label>
-            <select ngModel="{{ editEmployee?.role.roleId}}" name="role" class="form-select" aria-label="Default select example" id="updatedEmployeeRole" required>
-              <option *ngFor="let role of roles" [ngValue]=role>{{ role.roleId }} - {{ role.roleName }}</option>
+            <select ngModel name="role" class="form-select" aria-label="Default select example" id="updatedEmployeeRole" required>
+              <option *ngFor="let role of roles" [ngValue]= role>{{ role.roleId }} - {{ role.roleName }}</option>
             </select>
           </div>
 
           <div class="mb-3">
             <label for="updatedEmployeeName" class="form-label">Employee Name</label>
-            <input type="text" ngModel="{{ editEmployee?.name}}" name="name" class="form-control" id="updatedEmployeeName" aria-describedby="basic-addon1" required>
+            <input type="text" ngModel="{{ editEmployee?.name}}" pattern = "[a-zA-Z ]*" name="name" class="form-control" id="updatedEmployeeName" aria-describedby="basic-addon1" required>
           </div>
 
           <div class="mb-3">
             <label for="updatedEmployeeSurname" class="form-label">Employee Surname</label>
-            <input type="text" ngModel="{{ editEmployee?.surname}}" name="surname" class="form-control"
+            <input type="text" ngModel="{{ editEmployee?.surname}}" pattern = "[a-zA-Z ]*" name="surname" class="form-control"
                    id="updatedEmployeeSurname" aria-describedby="basic-addon1" required>
-          </div>
-
-          <div class="mb-3">
-            <label for="updatedEmployeeUsername" class="form-label">Employee Username</label>
-            <input type="text" ngModel="{{ editEmployee?.username}}" name="username" class="form-control"
-                   id="updatedEmployeeUsername" aria-describedby="basic-addon1" required>
           </div>
 
           <div class="mb-3">
@@ -156,7 +142,7 @@
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="updated-role-close-button">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="updated-employee-close-button">
               Close
             </button>
             <button [disabled]="editEmployeeForm.form.invalid" type="submit" class="btn btn-primary">Save changes</button>
