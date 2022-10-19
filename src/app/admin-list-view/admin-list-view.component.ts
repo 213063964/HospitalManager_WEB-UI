@@ -97,15 +97,14 @@ export class AdminListViewComponent implements OnInit {
   }
 
   public onUpdateEmployee(editEmployeeForm: NgForm): void {
-    // document.getElementById('updated-role-close-button').click();
-    // this.roleService.addRole(editEmployeeForm.value).subscribe(
-    //   (response: Role) => {
-    //     this.getRoles();
-    //   },
-    //   (error: HttpErrorResponse) => {
-    //     alert(error.message)
-    //   }
-    // );
+    document.getElementById('updated-employee-close-button').click();
+    this.employeeService.addEmployee(editEmployeeForm.value).subscribe(
+      (response: Employee) => {
+        this.getEmployees();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message)
+      }
+    );
   }
-
 }
