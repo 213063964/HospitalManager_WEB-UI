@@ -10,8 +10,11 @@ import { AdminListViewRolesComponent } from './admin-list-view-roles/admin-list-
 import {PatientUserInterfaceComponent} from "./patient-user-interface/patient-user-interface.component";
 import {AddressUserInterfaceComponent} from "./address-user-interface/address-user-interface.component";
 import {FormsModule} from "@angular/forms";
+import { WardListViewComponent } from './ward-list-view/ward-list-view.component';
+import { UserNavComponent } from './user-nav/user-nav.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule} from "ngx-toastr";
+
 
 
 @NgModule({
@@ -22,8 +25,12 @@ import { ToastrModule} from "ngx-toastr";
     LoginComponent,
     AdminListViewComponent,
     AdminListViewRolesComponent,
+
     PatientUserInterfaceComponent,
     AddressUserInterfaceComponent,
+
+    WardListViewComponent,
+    UserNavComponent,
   ],
   imports: [
     BrowserModule,

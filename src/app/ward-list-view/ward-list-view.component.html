@@ -1,0 +1,130 @@
+<app-user-nav></app-user-nav>
+
+<div class="container pt-4" id="main-container-ward">
+  <button type="button" class="btn btn-success" (click)="onOpenModalWards(null, 'add')">Add new</button>
+  <hr>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Ward Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Size</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let ward of ward; let i = index">
+      <th scope="row">{{i + 1}}</th>
+      <td><span class="link-primary" ward="button" (click)="onOpenModalWards(ward, 'edit')">{{ ward.wardId }}</span>
+      </td>
+      <td>{{ ward.wardName }}</td>
+      <td>{{ ward.wardDescription }}</td>
+      <td>{{ ward.wardSize }}</td>
+      <td>
+        <button type="button" class="btn btn-danger" (click)="onOpenModalWards(ward, 'delete')">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!--ADD Ward MODAL-->
+<div class="modal" tabindex="-1" id="addWardModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add a ward</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #addForm="ngForm" (ngSubmit)="onAddWard(addForm)">
+          <div class="mb-3">
+            <label for="wardId" class="form-label">Ward ID</label>
+            <input type="text" ngModel name="wardId" class="form-control" id="wardId" aria-describedby="basic-addon1" required>
+          </div>
+          <div class="mb-3">
+            <label for="wardName" class="form-label">Ward Name</label>
+            <input type="text" ngModel name="wardName" class="form-control" id="wardName" aria-describedby="basic-addon1" required>
+          </div>
+          <div class="mb-3">
+            <label for="wardDescription" class="form-label">Ward Description</label>
+            <input type="text" ngModel name="wardDescription" class="form-control" id="wardDescription" aria-describedby="basic-addon1" required>
+          </div>
+          <div class="mb-3">
+            <label for="wardSize" class="form-label">Ward Size</label>
+            <input type="text" ngModel name="wardSize" class="form-control" id="wardSize" aria-describedby="basic-addon1" required>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="ward-close-button">Close
+            </button>
+            <button [disabled]="addForm.form.invalid" type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--DELETE Ward MODAL-->
+<div class="modal" tabindex="-1" id="deleteWardModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete ward</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete ward: {{ deleteWard?.wardId }}?</p>
+        <form>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="delete-modal-close">Close</button>
+            <button type="button" class="btn btn-primary" (click)="onDeleteWard(deleteWard?.wardId)">Delete</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--EDIT or UPDATE WARD MODAL-->
+<div class="modal" tabindex="-1" id="editWardModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update ward: {{ editWard?.wardId }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #editForm="ngForm" (ngSubmit)="onUpdateWard(editForm)">
+          <div class="mb-3">
+            <label for="wardId" class="form-label">Ward ID</label>
+            <input type="text" ngModel="{{ editWard?.wardId}}" name="wardId" class="form-control" id="updatedWardId"
+                   aria-describedby="basic-addon1" required readonly>
+          </div>
+          <div class="mb-3">
+            <label for="wardName" class="form-label">Ward Name</label>
+            <input type="text" ngModel="{{ editWard?.wardName}}" name="wardName" class="form-control"
+                   id="updatedWardName" aria-describedby="basic-addon1" required>
+          </div>
+          <div class="mb-3">
+            <label for="wardDescription" class="form-label">Ward Description</label>
+            <input type="text" ngModel="{{ editWard?.wardDescription}}" name="wardDescription" class="form-control"
+                   id="updatedWardDescription" aria-describedby="basic-addon1" required>
+          </div>
+          <div class="mb-3">
+            <label for="wardSize" class="form-label">Ward Size</label>
+            <input type="text" ngModel="{{ editWard?.wardSize}}" name="wardSize" class="form-control"
+                   id="updatedWardSize" aria-describedby="basic-addon1" required>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="updated-ward-close-button">
+              Close
+            </button>
+            <button [disabled]="editForm.form.invalid" type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

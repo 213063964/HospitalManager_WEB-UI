@@ -15,10 +15,10 @@
                 <input type="password" [(ngModel)]="password" id="password" class="form-control form-control-lg" />
                 <label class="form-label" for="password">Password</label>
               </div>
-              <button class="btn btn-outline-light btn-lg px-5" id="admin-login" type="submit" [routerLink]=routerLinkLogin routerLinkActive="active" (click)="onReadEmployee(employeeId)">Login as admin</button>
+              <button class="btn btn-outline-light btn-lg px-5" id="admin-login" type="submit" [routerLink]=routerLinkLogin routerLinkActive="active" (click)="onReadEmployeeA(employeeId)">Login as admin</button>
               <br>
               <br>
-              <button class="btn btn-outline-light btn-lg px-5" type="submit">Login as user</button>
+              <button class="btn btn-outline-light btn-lg px-5" id="user-login" type="submit" [routerLink]=routerLinkLogin routerLinkActive="active" (click)="onReadEmployeeU(employeeId)">Login as user</button>
             </div>
           </div>
         </div>
