@@ -32,6 +32,12 @@ module.exports = function (config) {
         { type: 'text-summary' }
       ]
     },
+    addons: [{
+      name: '@storybook/addon-essentials',
+      options: {
+        docs: false,
+      }
+    }],
     reporters: ['progress', 'kjhtml'],
     port: 9876,
     colors: true,
