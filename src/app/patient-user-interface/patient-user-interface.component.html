@@ -1,4 +1,4 @@
-<app-admin-nav></app-admin-nav>
+<app-user-nav></app-user-nav>
 <div class="container pt-4" id="main-container-patient">
   <button type="button" class="btn btn-success" (click)="onOpenModalPatients(null, 'add')">Add new</button>
   <hr>
@@ -18,7 +18,7 @@
     <tbody>
     <tr *ngFor="let patient of patients; let i = index">
       <th scope="row">{{i + 1}}</th>
-      <td><span class="link-primary" patientId="button" (click)="onOpenModalPatients(patient, 'edit')">{{ patient.patientId }}</span></td>
+      <td><span class="link-primary" role="button" (click)="onOpenModalPatients(patient, 'edit')">{{ patient.patientId }}</span></td>
       <td>{{ patient.firstName }}</td>
       <td>{{ patient.lastName }}</td>
       <td>{{ patient.gender }}</td>
@@ -145,7 +145,7 @@
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="updated-contact-close-button">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="updated-patient-close-button">
               Close
             </button>
             <button [disabled]="editPatientForm.form.invalid" type="submit" class="btn btn-primary">Save changes</button>

@@ -3,6 +3,8 @@ import {Address} from "../models/address.model";
 import {HttpErrorResponse} from "@angular/common/http";
 import {AddressService} from "../services/address.service";
 import {NgForm} from "@angular/forms";
+import {Patient} from "../models/patient.model";
+import {PatientService} from "../services/patient.service";
 
 @Component({
   selector: 'app-address-user-interface',
@@ -14,11 +16,24 @@ export class AddressUserInterfaceComponent implements OnInit {
   public addresses: Address[];
   public deleteAddress: Address;
   public editAddress: Address;
+  public patientsList: Patient[];
 
-  constructor(private addressService: AddressService) { }
+  constructor(private addressService: AddressService, private patientService: PatientService) { }
 
   ngOnInit(): void {
     this.getAddresses();
+    this.getPatients();
+  }
+
+  public getPatients(): void {
+    this.patientService.getPatients().subscribe(
+      (response: Patient[]) => {
+        this.patientsList = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message)
+      }
+    )
   }
 
   public getAddresses(): void {
@@ -81,15 +96,15 @@ export class AddressUserInterfaceComponent implements OnInit {
   }
 
   public onUpdateAddress(editAddressForm: NgForm): void {
-    // document.getElementById('updated-role-close-button').click();
-    // this.roleService.addRole(editEmployeeForm.value).subscribe(
-    //   (response: Role) => {
-    //     this.getRoles();
-    //   },
-    //   (error: HttpErrorResponse) => {
-    //     alert(error.message)
-    //   }
-    // );
+    document.getElementById('updated-address-close-button').click();
+    this.addressService.addAddress(editAddressForm.value).subscribe(
+      (response: Address) => {
+        this.getAddresses();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message)
+      }
+    );
   }
 
 }

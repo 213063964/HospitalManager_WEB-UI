@@ -25,10 +25,8 @@ import { ToastrModule} from "ngx-toastr";
     LoginComponent,
     AdminListViewComponent,
     AdminListViewRolesComponent,
-
     PatientUserInterfaceComponent,
     AddressUserInterfaceComponent,
-
     WardListViewComponent,
     UserNavComponent,
   ],

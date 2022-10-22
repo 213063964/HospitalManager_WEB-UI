@@ -1,4 +1,4 @@
-<app-admin-nav></app-admin-nav>
+<app-user-nav></app-user-nav>
 <div class="container pt-4" id="main-container-address">
   <button type="button" class="btn btn-success" (click)="onOpenModalAddresses(null, 'add')">Add new</button>
   <hr>
@@ -21,7 +21,7 @@
     <tbody>
     <tr *ngFor="let address of addresses; let i = index">
       <th scope="row">{{i + 1}}</th>
-      <td><span class="link-primary" addressId="button" (click)="onOpenModalAddresses(address, 'edit')">{{ address.addressId }}</span></td>
+      <td><span class="link-primary" role="button" (click)="onOpenModalAddresses(address, 'edit')">{{ address.addressId }}</span></td>
       <td>{{ address.patientId }}</td>
       <td>{{ address.houseNumber }}</td>
       <td>{{ address.streetName }}</td>
@@ -55,14 +55,15 @@
           </div>
 
           <div class="mb-3">
-            <label for="patientId" class="form-label">Patient ID</label>
-            <input type="text" ngModel pattern = "[0-9]*" name="patientId" class="form-control" id="patientId" aria-describedby="basic-addon1"
-                   required>
+            <label for="patientId" class="form-label">Patient</label>
+            <select ngModel name="patientId" class="form-select" aria-label="Default select example" id="patientId" required>
+              <option *ngFor="let patient of patientsList" [ngValue]=patient.patientId>{{ patient.patientId }} - {{ patient.firstName }}</option>
+            </select>
           </div>
 
           <div class="mb-3">
             <label for="houseNumber" class="form-label">House Number</label>
-            <input type="text" ngModel pattern = "[0-9]*" name="house" class="form-control" id="houseNumber" aria-describedby="basic-addon1"
+            <input type="text" ngModel pattern = "[0-9]*" name="houseNumber" class="form-control" id="houseNumber" aria-describedby="basic-addon1"
                    required>
           </div>
 
@@ -139,6 +140,13 @@
             <label for="updatedAddressId" class="form-label">Address ID</label>
             <input type="text" ngModel="{{ editAddress?.addressId}}" pattern = "[0-9]*" name="addressId" class="form-control" id="updatedAddressId"
                    aria-describedby="basic-addon1" required readonly>
+          </div>
+
+          <div class="mb-3">
+            <label for="updatedPatientId" class="form-label">Role</label>
+            <select ngModel name="patientId" class="form-select" aria-label="Default select example" id="updatedEmployeeRole" required>
+              <option *ngFor="let patient of patientsList" [ngValue]= patient>{{ patient.patientId }} - {{ patient.firstName }}</option>
+            </select>
           </div>
 
           <div class="mb-3">
