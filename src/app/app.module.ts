@@ -13,7 +13,10 @@ import { AdminNavComponent } from './admin-nav/admin-nav.component';
 import { AdminListViewRolesComponent } from './admin-list-view-roles/admin-list-view-roles.component';
 
 import { ShiftsManagementComponent } from './shifts-management/shifts-management.component';
-
+import { UserListViewComponent } from './user-list-view/user-list-view.component';
+import { UserNavComponent } from './user-nav/user-nav.component';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -24,6 +27,8 @@ import { ShiftsManagementComponent } from './shifts-management/shifts-management
     LoginComponent,
     AdminListViewComponent,
     AdminListViewRolesComponent,
+    UserListViewComponent,
+    UserNavComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,9 +36,13 @@ import { ShiftsManagementComponent } from './shifts-management/shifts-management
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-  ],
-  exports: [
-    RouterModule,    
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-center',
+      progressBar: true,
+      progressAnimation: "increasing",
+      preventDuplicates: true,
+      timeOut: 3000
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

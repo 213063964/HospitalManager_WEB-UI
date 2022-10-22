@@ -5,6 +5,5 @@ export interface Employee {
   role: Role
   name: string
   surname: string
-  username: string
   password: string
 }

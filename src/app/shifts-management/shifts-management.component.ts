@@ -5,6 +5,7 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { of } from 'rxjs';
 import { Employee } from '../models/employee.model';
 import { EmployeeService } from '../services/employee.service';
+import { ToastrUtility } from '../utility/ToastrUtility.utility';
 
 @Component({
   selector: 'app-shifts-management',
@@ -40,12 +41,21 @@ export class ShiftsManagementComponent implements OnInit {
     shiftEmployees: new Array<Employee>,
   }
 
+  shiftToBeUpdated: IShift =
+  {
+    shiftId: 0,
+    shiftStartTime: "",
+    shiftEndTime: "",
+    shiftType: "",
+    shiftEmployees: new Array<Employee>,
+  }
+
   shifts: Array<IShift> = new Array<IShift>();
-  employees: Array<Employee> = new Array<Employee>();
+  employeesDatabase: Array<Employee> = new Array<Employee>();
   selectedShiftEmployeesList: Array<Employee> = [];
   employeesInList: Array<string> = [];
 
-  constructor(private shiftService: ShiftService, private employeeService: EmployeeService) 
+  constructor(private toastrUtil: ToastrUtility , private shiftService: ShiftService, private employeeService: EmployeeService) 
   { }
 
   ngOnInit(): void {
@@ -70,9 +80,9 @@ export class ShiftsManagementComponent implements OnInit {
   {
     this.employeeService.getEmployees().subscribe(
     {
-      next: (response) => this.employees = response,
-      error: (error) => console.error(error),
-      complete: () => console.info("Get Employees Request successful!")
+      next: (response) => this.employeesDatabase = response,
+      error: (error) => this.toastrUtil.showToastrError(error, "Get request failed"),
+      complete: () => this.toastrUtil.showToastrInfo("Request successful", "")
     });
     setTimeout(() => { 
       this.setShiftEmployees();
@@ -102,7 +112,7 @@ export class ShiftsManagementComponent implements OnInit {
   setShiftEmployees() : void
   {
     this.shiftsForm.patchValue({
-      employees: this.shift.shiftEmployees ?? null
+      employees: this.employeesDatabase ?? null
     });
     //this.employees = this.shift.shiftEmployees;
   }
@@ -126,17 +136,16 @@ export class ShiftsManagementComponent implements OnInit {
     this.shift.shiftStartTime = this.editShiftsForm.value.shiftStartTime;
     this.shift.shiftEndTime = this.editShiftsForm.value.shiftEndTime;
     this.shift.shiftType = this.editShiftsForm.value.shiftType;
-    this.shift.shiftEmployees = this.selectedShiftEmployeesList;
-    console.info("Observing the shift employees list after updating it");
-    console.log(this.shift.shiftEmployees);
-    //this.saveShift(this.shift);
+    this.shift.shiftEmployees = this.shiftToBeUpdated.shiftEmployees;
+    this.saveShift(this.shift);
     setTimeout(() => { 
-      //document.location.reload();
+      document.location.reload();
     }, 2500);
   }
 
-  deleteShift(shift: IShift)
+  deleteShift($event, shift: IShift)
   {
+    event.stopPropagation();
     this.removeShift(shift);
     setTimeout(() => { 
       document.location.reload();
@@ -152,49 +161,52 @@ export class ShiftsManagementComponent implements OnInit {
       window.alert("Cannot add the same employee twice!");
       return;
     }
-    
-    this.employeesInList.push(employee.employeeId);
 
-    if(location.match("editModal"))
+    if(location === "editModal")
     {
-      // if(this.isEmployeeInShiftList(employee))
-      // {
-      //   window.alert("Cannot add the same employee twice!");
-      //   return;
-      // }
+      if(this.isEmployeeInShiftList(employee))
+      {
+        window.alert("Cannot add the same employee twice!");
+        return;
+      }
       this.putEmployeeInSchedule(employee, selection);
       return;
     }
+    this.employeesInList.push(employee.employeeId);
     this.putEmployeeInSchedule(employee, selection);
   }
 
   showCreateShiftModal()
   {
+    this.fetchEmployees();
     document.getElementById('modalId').style.display = "block";
   }
 
   showEditShiftModal(shift: IShift)
   {
+    this.shiftToBeUpdated = shift;
     this.fetchEmployees();
     document.getElementById('editModalId').style.display = "block";
-  
     this.editShiftsForm.patchValue({
       shiftId: shift.shiftId,
       shiftStartTime: shift.shiftStartTime,
       shiftEndTime: shift.shiftEndTime,
       shiftType: shift.shiftType,
-      employees: this.employees,
+      employees: this.employeesDatabase,
       selectedShiftEmployees: shift.shiftEmployees,
     });
   }
 
-  removeEmployeeFromShift(employee: Employee)
+  removeEmployeeFromShift(employee: any)
   {
-    console.log("Shift Employees");
-    console.log(this.shift.shiftEmployees);
     document.getElementById("removeEmployeeFromShiftBtnId").setAttribute("class", "btn btn-danger");
-    // this.selectedShiftEmployeesList.filter((employeeInSchedule) => employeeInSchedule.employeeId === employee.employeeId);
+    this.shiftToBeUpdated.shiftEmployees.splice(this.shiftToBeUpdated.shiftEmployees.indexOf(employee), 1);
+    this.employeesInList.splice(this.shiftToBeUpdated.shiftEmployees.indexOf(employee), 1);
     document.getElementById(`scheduledEmployee${employee.employeeId}`).style.display = "none";
+  }
+
+  updateShift(): void
+  {
     this.submitUpdatedShift();
   }
 
@@ -221,6 +233,7 @@ export class ShiftsManagementComponent implements OnInit {
   private isEmployeeInShiftList(employee: Employee)
   {
     let doesExist = false;
+    console.log(this.employeesInList);
     this.employeesInList.forEach(employeeId => {
       if(employeeId === employee.employeeId) doesExist = true;
     });

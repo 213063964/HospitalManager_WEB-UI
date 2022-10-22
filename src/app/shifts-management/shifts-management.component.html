@@ -1,9 +1,9 @@
 <app-admin-nav></app-admin-nav>
 <div class="wrapper">
   <h2 id="shiftsHeading">Shifts Management Area</h2>
-  <button (click)="showCreateShiftModal()" id="createShiftBtnId" class="btn btn-primary" >Create Shift</button>
+  <button (click)="showCreateShiftModal()" id="createShiftBtnId" class="btn btn-success" >Create Shift</button>
 
-  <table class="table table-light">
+  <table class="table">
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -19,7 +19,7 @@
         <td>{{ shift.shiftStartTime ?? "" }}</td>
         <td>{{ shift.shiftEndTime ?? "" }}</td>
         <td>{{ shift.shiftType ?? "" }}</td>
-        <div><button class="btn btn-danger" (click)="deleteShift(shift)">delete</button></div>
+        <div><button class="btn btn-danger" (click)="deleteShift($event, shift)">delete</button></div>
       </tr>
     </tbody>
   </table>
@@ -58,8 +58,8 @@
 
             <div class="mb-3">
               <label for="Shift Employees" class="form-label">Shift Employees</label>
-              <select [(ngModel)]="shift.shiftEmployees" formControlName="employees" class="form-select" aria-label="Default select example" id="shiftEmployeeId" required>
-                <option *ngFor="let employee of shift.shiftEmployees" [ngValue]="shift" (click)="pickShiftEmployee(employee, 'createModal')" >{{ employee.name + " " + employee.surname}} - {{ employee.role.roleName }}</option>
+              <select [(ngModel)]="employeesDatabase" formControlName="employees" class="form-select" aria-label="Default select example" id="shiftEmployeeId" required>
+                <option *ngFor="let employee of employeesDatabase" [ngValue]="shift" (click)="pickShiftEmployee(employee, 'createModal')" >{{ employee.name + " " + employee.surname}} - {{ employee.role.roleName }}</option>
               </select>
             </div>
 
@@ -123,12 +123,12 @@
             <div class="mb-3">
               <label for="Shift Employees" class="form-label">Selected Shift Employees</label>
               <select #shiftEmpls [(ngModel)]="selectedShiftEmployeesList" formControlName="selectedShiftEmployees" class="form-select" aria-label="Default select example" id="selectedShiftEmployeeId" required>
-                <option *ngFor="let employee of selectedShiftEmployeesList" (click)="removeEmployeeFromShift(employee)" [ngValue]="employee"  id="scheduledEmployee{{employee.employeeId}}"  >{{ employee.name + " " + employee.surname}} - {{ employee.role.roleName }}</option>
+                <option *ngFor="let employee of selectedShiftEmployeesList" (click)="removeEmployeeFromShift(selectedShiftEmployeesList)" [ngValue]="employee"  id="scheduledEmployee{{employee.employeeId}}"  >{{ employee.name + " " + employee.surname}} - {{ employee.role.roleName }}</option>
               </select>
             </div>
 
             <div class="modal-footer">
-              <button id="removeEmployeeFromShiftBtnId" style="position: absolute; left: 5%;" type="disabled" class="btn btn-secondary">Remove Employee</button>
+              <button (click)="updateShift()" id="removeEmployeeFromShiftBtnId" style="position: absolute; left: 5%;" type="disabled" class="btn btn-secondary">Remove Employee</button>
               <button (click)="closeEditShiftModal()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                 Close
               </button>
