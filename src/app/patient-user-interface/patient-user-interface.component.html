@@ -1,0 +1,157 @@
+<app-admin-nav></app-admin-nav>
+<div class="container pt-4" id="main-container-patient">
+  <button type="button" class="btn btn-success" (click)="onOpenModalPatients(null, 'add')">Add new</button>
+  <hr>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Patient Number</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Gender</th>
+      <th scope="col">Contact Number</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let patient of patients; let i = index">
+      <th scope="row">{{i + 1}}</th>
+      <td><span class="link-primary" patientId="button" (click)="onOpenModalPatients(patient, 'edit')">{{ patient.patientId }}</span></td>
+      <td>{{ patient.firstName }}</td>
+      <td>{{ patient.lastName }}</td>
+      <td>{{ patient.gender }}</td>
+      <td>{{ patient.contactNumber }}</td>
+      <td>
+        <button type="button" class="btn btn-danger" (click)="onOpenModalPatients(patient, 'delete')">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!--ADD PATIENT MODAL-->
+<div class="modal" tabindex="-1" id="addPatientModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Patient</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #addPatientForm="ngForm" (ngSubmit)="onAddPatient(addPatientForm)">
+
+          <div class="mb-3">
+            <label for="patientId" class="form-label">Patient Id</label>
+            <input type="text" ngModel pattern = "[0-9]*" name="patientId" class="form-control" id="patientId"
+                   aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="firstName" class="form-label">Name</label>
+            <input type="text" ngModel pattern = "[a-zA-Z ]*" name="firstName" class="form-control" id="firstName" aria-describedby="basic-addon1"
+                   required>
+          </div>
+
+          <div class="mb-3">
+            <label for="lastName" class="form-label">Surname</label>
+            <input type="text" ngModel pattern = "[a-zA-Z ]*" name="lastName" class="form-control" id="lastName" aria-describedby="basic-addon1"
+                   required>
+          </div>
+
+          <div class="mb-3">
+            <label for="gender" class="form-label">Gender</label>
+            <input type="text" ngModel pattern = "[a-zA-Z ]*" name="gender" class="form-control" id="gender" aria-describedby="basic-addon1"
+                   required>
+          </div>
+
+          <div class="mb-3">
+            <label for="contactNumber" class="form-label">Contact Number</label>
+            <input type="text" ngModel pattern = "[0-9]*" name="contactNumber" class="form-control" id="contactNumber" aria-describedby="basic-addon1"
+                   required>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="patient-close-button">Close
+            </button>
+            <button [disabled]="addPatientForm.form.invalid" type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--DELETE PATIENT MODAL-->
+<div class="modal" tabindex="-1" id="deletePatientModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Patient</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete patient: ID:{{deletePatient?.patientId }} Patient Name: {{ deletePatient?.firstName }}?</p>
+        <form>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="delete-patient-modal-close">Close</button>
+            <button type="button" class="btn btn-primary" (click)="onDeletePatient(deletePatient?.patientId)">Delete</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--EDIT PATIENT MODAL-->
+<div class="modal" tabindex="-1" id="editPatientModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update Patient: {{ editPatient?.patientId }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #editPatientForm="ngForm" (ngSubmit)="onUpdatePatient(editPatientForm)">
+
+          <div class="mb-3">
+            <label for="updatedPatientId" class="form-label">Patient ID</label>
+            <input type="text" ngModel="{{ editPatient?.patientId}}" pattern = "[0-9]*" name="patientId" class="form-control" id="updatedPatientId"
+                   aria-describedby="basic-addon1" required readonly>
+          </div>
+
+          <div class="mb-3">
+            <label for="updatedPatientName" class="form-label">Patient Name</label>
+            <input type="text" ngModel="{{ editPatient?.firstName}}" pattern = "[a-zA-Z ]*" name="firstName" class="form-control" id="updatedPatientName" aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="updatedPatientSurname" class="form-label">Patient Surname</label>
+            <input type="text" ngModel="{{ editPatient?.lastName}}" pattern = "[a-zA-Z ]*" name="lastName" class="form-control"
+                   id="updatedPatientSurname" aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="updatedPatientGender" class="form-label">Patient Gender</label>
+            <input type="text" ngModel="{{ editPatient?.gender}}" pattern = "[a-zA-Z ]*" name="gender" class="form-control"
+                   id="updatedPatientGender" aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="updatedPatientContact" class="form-label">Patient Contact</label>
+            <input type="text" ngModel="{{ editPatient?.contactNumber}}" pattern = "[0-9]*" name="contactNumber" class="form-control"
+                   id="updatedPatientContact" aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="updated-contact-close-button">
+              Close
+            </button>
+            <button [disabled]="editPatientForm.form.invalid" type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

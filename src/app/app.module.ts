@@ -7,6 +7,8 @@ import { AdminListViewComponent } from './admin-list-view/admin-list-view.compon
 import { AdminNavComponent } from './admin-nav/admin-nav.component';
 import {HttpClientModule} from "@angular/common/http";
 import { AdminListViewRolesComponent } from './admin-list-view-roles/admin-list-view-roles.component';
+import {PatientUserInterfaceComponent} from "./patient-user-interface/patient-user-interface.component";
+import {AddressUserInterfaceComponent} from "./address-user-interface/address-user-interface.component";
 import {FormsModule} from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule} from "ngx-toastr";
@@ -20,6 +22,8 @@ import { ToastrModule} from "ngx-toastr";
     LoginComponent,
     AdminListViewComponent,
     AdminListViewRolesComponent,
+    PatientUserInterfaceComponent,
+    AddressUserInterfaceComponent,
   ],
   imports: [
     BrowserModule,
