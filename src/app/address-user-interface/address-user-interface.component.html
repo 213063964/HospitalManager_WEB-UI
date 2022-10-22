@@ -1,0 +1,195 @@
+<app-admin-nav></app-admin-nav>
+<div class="container pt-4" id="main-container-address">
+  <button type="button" class="btn btn-success" (click)="onOpenModalAddresses(null, 'add')">Add new</button>
+  <hr>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Address Number</th>
+      <th scope="col">Patient Number</th>
+      <th scope="col">House Number</th>
+      <th scope="col">Street Name</th>
+      <th scope="col">Suburb</th>
+      <th scope="col">City</th>
+      <th scope="col">Postal Code</th>
+      <th scope="col">Province</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let address of addresses; let i = index">
+      <th scope="row">{{i + 1}}</th>
+      <td><span class="link-primary" addressId="button" (click)="onOpenModalAddresses(address, 'edit')">{{ address.addressId }}</span></td>
+      <td>{{ address.patientId }}</td>
+      <td>{{ address.houseNumber }}</td>
+      <td>{{ address.streetName }}</td>
+      <td>{{ address.suburb }}</td>
+      <td>{{ address.city }}</td>
+      <td>{{ address.postalCode }}</td>
+      <td>{{ address.province }}</td>
+      <td>
+        <button type="button" class="btn btn-danger" (click)="onOpenModalAddresses(address, 'delete')">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!--ADD ADDRESS MODAL-->
+<div class="modal" tabindex="-1" id="addAddressModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Address</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #addAddressForm="ngForm" (ngSubmit)="onAddAddress(addAddressForm)">
+
+          <div class="mb-3">
+            <label for="addressId" class="form-label">Address ID</label>
+            <input type="text" ngModel pattern = "[0-9]*" name="addressId" class="form-control" id="addressId"
+                   aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="patientId" class="form-label">Patient ID</label>
+            <input type="text" ngModel pattern = "[0-9]*" name="patientId" class="form-control" id="patientId" aria-describedby="basic-addon1"
+                   required>
+          </div>
+
+          <div class="mb-3">
+            <label for="houseNumber" class="form-label">House Number</label>
+            <input type="text" ngModel pattern = "[0-9]*" name="house" class="form-control" id="houseNumber" aria-describedby="basic-addon1"
+                   required>
+          </div>
+
+          <div class="mb-3">
+            <label for="streetName" class="form-label">Street Name</label>
+            <input type="text" ngModel pattern = "[a-zA-Z ]*" name="streetName" class="form-control" id="streetName" aria-describedby="basic-addon1"
+                   required>
+          </div>
+
+          <div class="mb-3">
+            <label for="suburb" class="form-label">Suburb</label>
+            <input type="text" ngModel pattern = "[a-zA-Z ]*" name="suburb" class="form-control" id="suburb" aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="city" class="form-label">City</label>
+            <input type="text" ngModel pattern = "[a-zA-Z ]*" name="city" class="form-control" id="city" aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="postalCode" class="form-label">Postal Code</label>
+            <input type="text" ngModel pattern = "[0-9]*" name="postalCode" class="form-control" id="postalCode" aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="province" class="form-label">Province</label>
+            <input type="text" ngModel pattern = "[a-zA-Z ]*" name="province" class="form-control" id="province" aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="address-close-button">Close
+            </button>
+            <button [disabled]="addAddressForm.form.invalid" type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--DELETE ADDRESS MODAL-->
+<div class="modal" tabindex="-1" id="deleteAddressModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Address</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete address: ID:{{deleteAddress?.addressId }} Patient ID: {{ deleteAddress?.patientId }}?</p>
+        <form>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="delete-address-modal-close">Close</button>
+            <button type="button" class="btn btn-primary" (click)="onDeleteAddress(deleteAddress?.addressId)">Delete</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--EDIT ADDRESS MODAL-->
+<div class="modal" tabindex="-1" id="editAddressModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update Address: {{ editAddress?.addressId }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #editAddressForm="ngForm" (ngSubmit)="onUpdateAddress(editAddressForm)">
+
+          <div class="mb-3">
+            <label for="updatedAddressId" class="form-label">Address ID</label>
+            <input type="text" ngModel="{{ editAddress?.addressId}}" pattern = "[0-9]*" name="addressId" class="form-control" id="updatedAddressId"
+                   aria-describedby="basic-addon1" required readonly>
+          </div>
+
+          <div class="mb-3">
+            <label for="updatedPatientId" class="form-label">Patient ID</label>
+            <input type="text" ngModel="{{ editAddress?.patientId}}" name="patientId" class="form-control" id="updatedPatientId" aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="updatedHouseNumber" class="form-label">House Number</label>
+            <input type="text" ngModel="{{ editAddress?.houseNumber}}" pattern = "[0-9]*" name="houseNumber" class="form-control"
+                   id="updatedHouseNumber" aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="updatedStreetName" class="form-label">Street Name</label>
+            <input type="text" ngModel="{{ editAddress?.streetName}}" pattern = "[a-zA-Z ]*" name="streetName" class="form-control"
+                   id="updatedStreetName" aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="updatedSuburb" class="form-label">Suburb</label>
+            <input type="text" ngModel="{{ editAddress?.suburb}}" pattern = "[a-zA-Z ]*" name="suburb" class="form-control"
+                   id="updatedSuburb" aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="updatedCity" class="form-label">City</label>
+            <input type="text" ngModel="{{ editAddress?.city}}" pattern = "[a-zA-Z ]*" name="city" class="form-control"
+                   id="updatedCity" aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="updatedPostalCode" class="form-label">Postal Code</label>
+            <input type="text" ngModel="{{ editAddress?.postalCode}}" pattern = "[0-9]*" name="postalCode" class="form-control"
+                   id="updatedPostalCode" aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="updatedProvince" class="form-label">Province</label>
+            <input type="text" ngModel="{{ editAddress?.province}}" pattern = "[a-zA-Z ]*" name="province" class="form-control"
+                   id="updatedProvince" aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="updated-address-close-button">
+              Close
+            </button>
+            <button [disabled]="editAddressForm.form.invalid" type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
