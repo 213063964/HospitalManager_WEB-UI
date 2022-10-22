@@ -1,5 +1,6 @@
-<app-admin-nav></app-admin-nav>
+<app-user-nav></app-user-nav>
 <div class="container pt-4" id="main-container-appointment">
+  <h2 class="hospitalSysHeading">Patient Appointment Management Area</h2>
   <button type="button" class="btn btn-success" (click)="onOpenModalAppointments(null, 'add')">Add new</button>
   <hr>
   <table class="table">
@@ -51,15 +52,17 @@
           </div>
 
           <div class="mb-3">
-            <label for="employeeId" class="form-label">Employee ID</label>
-            <input type="text" ngModel name="employeeId" class="form-control" id="employeeId" aria-describedby="basic-addon1"
-                   required>
+            <label for="employeeId" class="form-label">Employee</label>
+            <select ngModel name="employeeId" class="form-select" aria-label="Default select example" id="employeeId" required>
+              <option *ngFor="let employee of employeeList1" [ngValue]=employee.employeeId>{{ employee.employeeId }} - {{ employee.name }}</option>
+            </select>
           </div>
 
           <div class="mb-3">
-            <label for="patientId" class="form-label">Patient ID</label>
-            <input type="text" ngModel name="patientId" class="form-control" id="patientId" aria-describedby="basic-addon1"
-                   required>
+            <label for="patientId" class="form-label">Patient</label>
+            <select ngModel name="patientId" class="form-select" aria-label="Default select example" id="patientId" required>
+              <option *ngFor="let patient of patientsList1" [ngValue]=patient.patientId>{{ patient.patientId }} - {{ patient.firstName }}</option>
+            </select>
           </div>
 
           <div class="mb-3">
@@ -141,7 +144,7 @@
                    id="updatedPatientId" aria-describedby="basic-addon1" required>
           </div>
           <div class="mb-3">
-            <label for="updatedAppointmentType" class="form-label">Patient Gender</label>
+            <label for="updatedAppointmentType" class="form-label">Appointment Type</label>
             <input type="text" ngModel="{{ editAppointment?.appointmentType}}" name="appointmentType" class="form-control"
                    id="updatedAppointmentType" aria-describedby="basic-addon1" required>
           </div>

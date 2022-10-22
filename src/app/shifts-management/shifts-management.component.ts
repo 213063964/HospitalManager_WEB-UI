@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { IShift } from '../models/shift.model';
 import { ShiftService } from '../services/shift.service';
 import { FormControl, FormGroup } from "@angular/forms";
-import { of } from 'rxjs';
 import { Employee } from '../models/employee.model';
 import { EmployeeService } from '../services/employee.service';
 import { ToastrUtility } from '../utility/ToastrUtility.utility';
@@ -19,7 +18,7 @@ export class ShiftsManagementComponent implements OnInit {
     shiftStartTime: new FormControl(""),
     shiftEndTime: new FormControl(""),
     shiftType: new FormControl(""),
-    employees: new FormControl(new Array<Employee>), 
+    employees: new FormControl(new Array<Employee>),
     selectedShiftEmployees: new FormControl(new Array<Employee>),
   });
 
@@ -28,7 +27,7 @@ export class ShiftsManagementComponent implements OnInit {
     shiftStartTime: new FormControl(""),
     shiftEndTime: new FormControl(""),
     shiftType: new FormControl(""),
-    employees: new FormControl(new Array<Employee>), 
+    employees: new FormControl(new Array<Employee>),
     selectedShiftEmployees: new FormControl(new Array<Employee>),
   });
 
@@ -38,7 +37,7 @@ export class ShiftsManagementComponent implements OnInit {
     shiftStartTime: "",
     shiftEndTime: "",
     shiftType: "",
-    shiftEmployees: new Array<Employee>,
+    shiftEmployees: new Array<Employee>
   }
 
   shiftToBeUpdated: IShift =
@@ -47,7 +46,7 @@ export class ShiftsManagementComponent implements OnInit {
     shiftStartTime: "",
     shiftEndTime: "",
     shiftType: "",
-    shiftEmployees: new Array<Employee>,
+    shiftEmployees: new Array<Employee>
   }
 
   shifts: Array<IShift> = new Array<IShift>();
@@ -55,7 +54,7 @@ export class ShiftsManagementComponent implements OnInit {
   selectedShiftEmployeesList: Array<Employee> = [];
   employeesInList: Array<string> = [];
 
-  constructor(private toastrUtil: ToastrUtility , private shiftService: ShiftService, private employeeService: EmployeeService) 
+  constructor(private toastrUtil: ToastrUtility , private shiftService: ShiftService, private employeeService: EmployeeService)
   { }
 
   ngOnInit(): void {
@@ -70,9 +69,9 @@ export class ShiftsManagementComponent implements OnInit {
       next: (response) => this.shifts = response,
       error: (error) => this.toastrUtil.showToastrError(error, "Get shift failed"),
     });
-    setTimeout(() => { 
-      
-    }, 3000);
+    setTimeout(() => {
+
+    }, 1500);
   }
 
   fetchEmployees(): void
@@ -82,10 +81,10 @@ export class ShiftsManagementComponent implements OnInit {
       next: (response) => this.employeesDatabase = response,
       error: (error) => this.toastrUtil.showToastrError(error, "Get request failed"),
     });
-    setTimeout(() => { 
+    setTimeout(() => {
       this.setShiftEmployees();
-    }, 3000);
-  } 
+    }, 1500);
+  }
 
   saveShift(shift: IShift): void
   {
@@ -117,9 +116,9 @@ export class ShiftsManagementComponent implements OnInit {
     this.shift.shiftType = this.shiftsForm.value.shiftType;
     this.shift.shiftEmployees = this.selectedShiftEmployeesList;
     this.saveShift(this.shift);
-    setTimeout(() => { 
+    setTimeout(() => {
       document.location.reload();
-    }, 2500);
+    }, 1500);
   }
 
   submitUpdatedShift()
@@ -130,18 +129,18 @@ export class ShiftsManagementComponent implements OnInit {
     this.shift.shiftType = this.editShiftsForm.value.shiftType;
     this.shift.shiftEmployees = this.shiftToBeUpdated.shiftEmployees;
     this.saveShift(this.shift);
-    setTimeout(() => { 
+    setTimeout(() => {
       document.location.reload();
-    }, 2500);
+    }, 1500);
   }
 
   deleteShift($event, shift: IShift)
   {
     event.stopPropagation();
     this.removeShift(shift);
-    setTimeout(() => { 
+    setTimeout(() => {
       document.location.reload();
-    }, 2500);
+    }, 1500);
   }
 
   pickShiftEmployee(employee: Employee, location: string)

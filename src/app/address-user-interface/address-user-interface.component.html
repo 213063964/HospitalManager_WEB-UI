@@ -144,7 +144,7 @@
           </div>
 
           <div class="mb-3">
-            <label for="updatedPatientId" class="form-label">Role</label>
+            <label for="updatedPatientId" class="form-label">Patient</label>
             <select ngModel name="patientId" class="form-select" aria-label="Default select example" id="updatedEmployeeRole" required>
               <option *ngFor="let patient of patientsList" [ngValue]= patient>{{ patient.patientId }} - {{ patient.firstName }}</option>
             </select>

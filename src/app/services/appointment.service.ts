@@ -22,7 +22,7 @@ export class AppointmentService {
   }
 
   public addAppointment(appointment: Appointment): Observable<Appointment> {
-    return this.http.post<Appointment>(`${this.apiServiceUrl}/save`, appointment)
+    return this.http.post<Appointment>(`${this.apiServiceUrl}appointment/save`, appointment)
   }
 
   public readAppointment(appointmentId: string): Observable<Appointment> {
@@ -30,7 +30,7 @@ export class AppointmentService {
   }
 
   public deleteAppointment(appointmentId: string): Observable<boolean> {
-    return this.http.delete<boolean>(`${this.apiServiceUrl}/delete/${appointmentId}`)
+    return this.http.delete<boolean>(`${this.apiServiceUrl}appointment/delete/${appointmentId}`)
   }
 
 }

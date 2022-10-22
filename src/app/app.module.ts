@@ -5,9 +5,6 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from "@angular/forms";
-import { ToastrModule } from "ngx-toastr";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-
 import { LoginComponent } from './login/login.component';
 import { AdminListViewComponent } from './admin-list-view/admin-list-view.component';
 import { AdminNavComponent } from './admin-nav/admin-nav.component';

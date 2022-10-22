@@ -3,6 +3,10 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {NgForm} from "@angular/forms";
 import {Appointment} from "../models/appointment.model";
 import {AppointmentService} from "../services/appointment.service";
+import {Patient} from "../models/patient.model";
+import {PatientService} from "../services/patient.service";
+import {EmployeeService} from "../services/employee.service";
+import {Employee} from "../models/employee.model";
 
 @Component({
   selector: 'app-appointment-user-interface',
@@ -14,17 +18,43 @@ export class AppointmentComponent implements OnInit {
   public appointments: Appointment[];
   public deleteAppointment: Appointment;
   public editAppointment: Appointment;
+  public patientsList1: Patient[];
+  public employeeList1: Employee[];
 
-  constructor(private appointmentService: AppointmentService) { }
+  constructor(private appointmentService: AppointmentService, private patientService: PatientService, private employeeService: EmployeeService) { }
 
   ngOnInit(): void {
     this.getAppointments();
+    this.getPatients();
+    this.getEmployees()
   }
 
   public getAppointments(): void {
     this.appointmentService.getAppointments().subscribe(
       (response: Appointment[]) => {
         this.appointments = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message)
+      }
+    )
+  }
+
+  public getEmployees(): void {
+    this.employeeService.getEmployees().subscribe(
+      (response: Employee[]) => {
+        this.employeeList1 = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message)
+      }
+    )
+  }
+
+  public getPatients(): void {
+    this.patientService.getPatients().subscribe(
+      (response: Patient[]) => {
+        this.patientsList1 = response;
       },
       (error: HttpErrorResponse) => {
         alert(error.message)
