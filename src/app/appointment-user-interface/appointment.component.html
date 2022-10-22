@@ -1,0 +1,171 @@
+<app-admin-nav></app-admin-nav>
+<div class="container pt-4" id="main-container-appointment">
+  <button type="button" class="btn btn-success" (click)="onOpenModalAppointments(null, 'add')">Add new</button>
+  <hr>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Appointment ID</th>
+      <th scope="col">Employee ID</th>
+      <th scope="col">Patient ID</th>
+      <th scope="col">Appointment Type</th>
+      <th scope="col">Appointment Date</th>
+      <th scope="col">Appointment time</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let appointment of appointments; let i = index">
+      <th scope="row">{{i + 1}}</th>
+      <td><span class="link-primary" appointmentId="button" (click)="onOpenModalAppointments(appointment, 'edit')">{{ appointment.appointmentId }}</span></td>
+      <td>{{ appointment.employeeId }}</td>
+      <td>{{ appointment.patientId }}</td>
+      <td>{{ appointment.appointmentType }}</td>
+      <td>{{ appointment.appointmentDate }}</td>
+      <td>{{ appointment.appointmentTime }}</td>
+      <td>
+        <button type="button" class="btn btn-danger" (click)="onOpenModalAppointments(appointment, 'delete')">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!--ADD APPOINTMENT MODAL-->
+<div class="modal" tabindex="-1" id="addAppointmentModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Appointment</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #addAppointmentForm="ngForm" (ngSubmit)="onAddAppointment(addAppointmentForm)">
+
+          <div class="mb-3">
+            <label for="appointmentId" class="form-label">Appointment Id</label>
+            <input type="text" ngModel name="appointmentId" class="form-control" id="appointmentId"
+                   aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="employeeId" class="form-label">Employee ID</label>
+            <input type="text" ngModel name="employeeId" class="form-control" id="employeeId" aria-describedby="basic-addon1"
+                   required>
+          </div>
+
+          <div class="mb-3">
+            <label for="patientId" class="form-label">Patient ID</label>
+            <input type="text" ngModel name="patientId" class="form-control" id="patientId" aria-describedby="basic-addon1"
+                   required>
+          </div>
+
+          <div class="mb-3">
+            <label for="appointmentType" class="form-label">Appointment Type</label>
+            <input type="text" ngModel name="appointmentType" class="form-control" id="appointmentType" aria-describedby="basic-addon1"
+                   required>
+          </div>
+          <div class="mb-3">
+            <label for="appointmentDate" class="form-label">Appointment Date</label>
+            <input type="text" ngModel name="appointmentDate" class="form-control" id="appointmentDate" aria-describedby="basic-addon1"
+                   required>
+          </div>
+
+          <div class="mb-3">
+            <label for="appointmentTime" class="form-label">Appointment Time</label>
+            <input type="text" ngModel name="appointmentTime" class="form-control" id="appointmentTime" aria-describedby="basic-addon1"
+                   required>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="appointment-close-button">Close
+            </button>
+            <button [disabled]="addAppointmentForm.form.invalid" type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--DELETE APPOINTMENT MODAL-->
+<div class="modal" tabindex="-1" id="deleteAppointmentModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Appointment</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete appointment: ID:{{deleteAppointment?.appointmentId }} Appointment Date: {{ deleteAppointment?.appointmentDate }}?</p>
+        <form>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="delete-appointment-modal-close">Close</button>
+            <button type="button" class="btn btn-primary" (click)="onDeleteAppointment(deleteAppointment?.appointmentId)">Delete</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--EDIT APPOINTMENT MODAL-->
+<div class="modal" tabindex="-1" id="editAppointmentModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update Appointment: {{ editAppointment?.appointmentId }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #editAppointmentForm="ngForm" (ngSubmit)="onUpdateAppointment(editAppointmentForm)">
+
+          <div class="mb-3">
+            <label for="updatedAppointmentId" class="form-label">Appointment ID</label>
+            <input type="text" ngModel="{{ editAppointment?.appointmentId}}" name="appointmentId" class="form-control" id="updatedAppointmentId"
+                   aria-describedby="basic-addon1" required readonly>
+          </div>
+
+          <div class="mb-3">
+            <label for="updatedEmployeeId" class="form-label">Employee ID</label>
+            <input type="text" ngModel="{{ editAppointment?.employeeId}}" name="employeeId" class="form-control" id="updatedEmployeeId" aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="updatedPatientId" class="form-label">Patient ID</label>
+            <input type="text" ngModel="{{ editAppointment?.patientId}}" name="patientId" class="form-control"
+                   id="updatedPatientId" aria-describedby="basic-addon1" required>
+          </div>
+          <div class="mb-3">
+            <label for="updatedAppointmentType" class="form-label">Patient Gender</label>
+            <input type="text" ngModel="{{ editAppointment?.appointmentType}}" name="appointmentType" class="form-control"
+                   id="updatedAppointmentType" aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="updatedAppointmentDate" class="form-label">Appointment Date</label>
+            <input type="text" ngModel="{{ editAppointment?.appointmentDate}}" name="appointmentDate" class="form-control"
+                   id="updatedAppointmentDate" aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="updatedAppointmentTime" class="form-label">Appointment Time</label>
+            <input type="text" ngModel="{{ editAppointment?.appointmentTime}}" name="appointmentTime" class="form-control"
+                   id="updatedAppointmentTime" aria-describedby="basic-addon1" required>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="updated-appointment-close-button">
+              Close
+            </button>
+            <button [disabled]="editAppointmentForm.form.invalid" type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -17,6 +17,9 @@ import { PatientUserInterfaceComponent } from "./patient-user-interface/patient-
 import { AddressUserInterfaceComponent } from "./address-user-interface/address-user-interface.component";
 import { WardListViewComponent } from './ward-list-view/ward-list-view.component';
 import { UserNavComponent } from './user-nav/user-nav.component';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ToastrModule} from "ngx-toastr";
+import {AppointmentComponent} from "./appointment-user-interface/appointment.component";
 
 @NgModule({
   declarations: [
@@ -27,6 +30,7 @@ import { UserNavComponent } from './user-nav/user-nav.component';
     LoginComponent,
     AdminListViewComponent,
     AdminListViewRolesComponent,
+    AppointmentComponent,
     PatientUserInterfaceComponent,
     AddressUserInterfaceComponent,
     WardListViewComponent,
