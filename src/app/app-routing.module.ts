@@ -17,7 +17,6 @@ const routes: Routes = [
   { path: 'address-user-interface', component: AddressUserInterfaceComponent },
   { path: 'user-list-wards', component: WardListViewComponent },
   { path: 'shifts-management', component: ShiftsManagementComponent },
-
 ];
 
 @NgModule({

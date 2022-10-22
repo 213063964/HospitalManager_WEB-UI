@@ -1,6 +1,7 @@
 <app-user-nav></app-user-nav>
 
 <div class="container pt-4" id="main-container-ward">
+  <h2 class="hospitalSysHeading">Ward Management Area</h2>
   <button type="button" class="btn btn-success" (click)="onOpenModalWards(null, 'add')">Add new</button>
   <hr>
   <table class="table">
@@ -16,7 +17,7 @@
     <tbody>
     <tr *ngFor="let ward of ward; let i = index">
       <th scope="row">{{i + 1}}</th>
-      <td><span class="link-primary" ward="button" (click)="onOpenModalWards(ward, 'edit')">{{ ward.wardId }}</span>
+      <td><span class="link-primary" role="button" (click)="onOpenModalWards(ward, 'edit')">{{ ward.wardId }}</span>
       </td>
       <td>{{ ward.wardName }}</td>
       <td>{{ ward.wardDescription }}</td>

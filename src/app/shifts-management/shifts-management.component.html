@@ -1,8 +1,8 @@
 <app-admin-nav></app-admin-nav>
 <div class="wrapper">
-  <h2 id="shiftsHeading">Shifts Management Area</h2>
+  <h2 class="hospitalSysHeading">Shifts Management Area</h2>
   <button (click)="showCreateShiftModal()" id="createShiftBtnId" class="btn btn-success" >Create Shift</button>
-
+  <hr/>
   <table class="table">
     <thead>
       <tr>
@@ -14,7 +14,6 @@
     </thead>
     <tbody>
       <tr (click)="showEditShiftModal(shift)" *ngFor="let shift of shifts; let i = index">
-        <!-- <th scope="row">{{ shift.shiftId }}</th> -->
         <td>{{ shift.shiftId ?? "" }}</td>
         <td>{{ shift.shiftStartTime ?? "" }}</td>
         <td>{{ shift.shiftEndTime ?? "" }}</td>
