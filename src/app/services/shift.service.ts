@@ -14,8 +14,6 @@ export class ShiftService
 
     addShift(shift: any) : Observable<IShift>
     {
-        console.log("Attempting to save a new shift.");
-        console.log(shift);
         return this.http.post<IShift>(`${this.apiServerUrl}shift/save`, shift);
     }
 

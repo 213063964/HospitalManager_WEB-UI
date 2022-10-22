@@ -68,8 +68,7 @@ export class ShiftsManagementComponent implements OnInit {
     this.shiftService.getShifts().subscribe(
     {
       next: (response) => this.shifts = response,
-      error: (error) => console.error(error),
-      complete: () => console.info("Get Shifts Request successful!")
+      error: (error) => this.toastrUtil.showToastrError(error, "Get shift failed"),
     });
     setTimeout(() => { 
       
