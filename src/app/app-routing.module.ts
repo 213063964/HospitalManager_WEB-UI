@@ -8,6 +8,7 @@ import {PatientUserInterfaceComponent} from "./patient-user-interface/patient-us
 import {AddressUserInterfaceComponent} from "./address-user-interface/address-user-interface.component";
 
 import {WardListViewComponent} from "./ward-list-view/ward-list-view.component";
+import {AppointmentComponent} from "./appointment-user-interface/appointment.component";
 
 
 const routes: Routes = [
@@ -17,9 +18,11 @@ const routes: Routes = [
   {path: 'admin-list-roles', component: AdminListViewRolesComponent},
 
   {path: 'patient-user-interface', component: PatientUserInterfaceComponent},
-  {path: 'address-user-interface', component: AddressUserInterfaceComponent}
+  {path: 'address-user-interface', component: AddressUserInterfaceComponent},
 
-  {path: 'user-list-wards', component: WardListViewComponent}
+  {path: 'user-list-wards', component: WardListViewComponent},
+
+  {path: 'appointment-user-interface', component: AppointmentComponent}
 
 ];
 
@@ -30,7 +33,5 @@ const routes: Routes = [
 export class AppRoutingModule { }
 
 export const routingComponents = [LoginComponent, AdminListViewComponent,
-  AdminListViewRolesComponent,PatientUserInterfaceComponent, AddressUserInterfaceComponent]
-
-export const routingComponents = [LoginComponent, AdminListViewComponent, AdminListViewRolesComponent, WardListViewComponent]
+  AdminListViewRolesComponent,PatientUserInterfaceComponent, AddressUserInterfaceComponent,AppointmentComponent]
 

@@ -14,6 +14,7 @@ import { WardListViewComponent } from './ward-list-view/ward-list-view.component
 import { UserNavComponent } from './user-nav/user-nav.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule} from "ngx-toastr";
+import {AppointmentComponent} from "./appointment-user-interface/appointment.component";
 
 
 
@@ -25,6 +26,8 @@ import { ToastrModule} from "ngx-toastr";
     LoginComponent,
     AdminListViewComponent,
     AdminListViewRolesComponent,
+
+   AppointmentComponent,
 
     PatientUserInterfaceComponent,
     AddressUserInterfaceComponent,
