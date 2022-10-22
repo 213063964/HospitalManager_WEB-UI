@@ -70,7 +70,7 @@ export class ShiftsManagementComponent implements OnInit {
   {
     this.employeeService.getEmployees().subscribe(
     {
-      next: (response) => this.shift.shiftEmployees = response,
+      next: (response) => this.employees = response,
       error: (error) => console.error(error),
       complete: () => console.info("Get Employees Request successful!")
     });
@@ -104,7 +104,7 @@ export class ShiftsManagementComponent implements OnInit {
     this.shiftsForm.patchValue({
       employees: this.shift.shiftEmployees ?? null
     });
-    this.employees = this.shift.shiftEmployees;
+    //this.employees = this.shift.shiftEmployees;
   }
 
   submitShift()
@@ -127,9 +127,11 @@ export class ShiftsManagementComponent implements OnInit {
     this.shift.shiftEndTime = this.editShiftsForm.value.shiftEndTime;
     this.shift.shiftType = this.editShiftsForm.value.shiftType;
     this.shift.shiftEmployees = this.selectedShiftEmployeesList;
-    this.saveShift(this.shift);
+    console.info("Observing the shift employees list after updating it");
+    console.log(this.shift.shiftEmployees);
+    //this.saveShift(this.shift);
     setTimeout(() => { 
-      document.location.reload();
+      //document.location.reload();
     }, 2500);
   }
 
@@ -173,16 +175,27 @@ export class ShiftsManagementComponent implements OnInit {
 
   showEditShiftModal(shift: IShift)
   {
+    this.fetchEmployees();
     document.getElementById('editModalId').style.display = "block";
-    console.log(this.employees);
+  
     this.editShiftsForm.patchValue({
       shiftId: shift.shiftId,
       shiftStartTime: shift.shiftStartTime,
       shiftEndTime: shift.shiftEndTime,
       shiftType: shift.shiftType,
-      employees: this.employees, 
+      employees: this.employees,
       selectedShiftEmployees: shift.shiftEmployees,
     });
+  }
+
+  removeEmployeeFromShift(employee: Employee)
+  {
+    console.log("Shift Employees");
+    console.log(this.shift.shiftEmployees);
+    document.getElementById("removeEmployeeFromShiftBtnId").setAttribute("class", "btn btn-danger");
+    // this.selectedShiftEmployeesList.filter((employeeInSchedule) => employeeInSchedule.employeeId === employee.employeeId);
+    document.getElementById(`scheduledEmployee${employee.employeeId}`).style.display = "none";
+    this.submitUpdatedShift();
   }
 
   closeCreateShiftModal()
@@ -193,6 +206,7 @@ export class ShiftsManagementComponent implements OnInit {
   closeEditShiftModal()
   {
     document.getElementById('editModalId').style.display = "none";
+    document.getElementById("removeEmployeeFromShiftBtnId").setAttribute("class", "btn btn-secondary");
   }
 
   private putEmployeeInSchedule(employee: Employee, selection: any)
@@ -212,6 +226,4 @@ export class ShiftsManagementComponent implements OnInit {
     });
     return doesExist;
   }
-
-
 }

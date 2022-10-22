@@ -122,12 +122,13 @@
 
             <div class="mb-3">
               <label for="Shift Employees" class="form-label">Selected Shift Employees</label>
-              <select [(ngModel)]="selectedShiftEmployeesList" formControlName="selectedShiftEmployees" class="form-select" aria-label="Default select example" id="selectedShiftEmployeeId" required>
-                <option *ngFor="let employee of selectedShiftEmployeesList" [ngValue]="employee" >{{ employee.name + " " + employee.surname}} - {{ employee.role.roleName }}</option>
+              <select #shiftEmpls [(ngModel)]="selectedShiftEmployeesList" formControlName="selectedShiftEmployees" class="form-select" aria-label="Default select example" id="selectedShiftEmployeeId" required>
+                <option *ngFor="let employee of selectedShiftEmployeesList" (click)="removeEmployeeFromShift(employee)" [ngValue]="employee"  id="scheduledEmployee{{employee.employeeId}}"  >{{ employee.name + " " + employee.surname}} - {{ employee.role.roleName }}</option>
               </select>
             </div>
 
             <div class="modal-footer">
+              <button id="removeEmployeeFromShiftBtnId" style="position: absolute; left: 5%;" type="disabled" class="btn btn-secondary">Remove Employee</button>
               <button (click)="closeEditShiftModal()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                 Close
               </button>

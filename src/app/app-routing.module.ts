@@ -3,12 +3,14 @@ import { Routes, RouterModule } from "@angular/router";
 import {LoginComponent} from "./login/login.component";
 import {AdminListViewComponent} from "./admin-list-view/admin-list-view.component";
 import {AdminListViewRolesComponent} from "./admin-list-view-roles/admin-list-view-roles.component";
+import { ShiftsManagementComponent } from "./shifts-management/shifts-management.component";
 
 const routes: Routes = [
   {path:'', redirectTo: 'login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'admin-list-employees', component: AdminListViewComponent},
-  {path: 'admin-list-roles', component: AdminListViewRolesComponent}
+  {path: 'admin-list-roles', component: AdminListViewRolesComponent},
+  {path: 'shifts-management', component: ShiftsManagementComponent}
 ];
 
 @NgModule({
@@ -16,4 +18,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const routingComponents = [LoginComponent, AdminListViewComponent, AdminListViewRolesComponent]
+export const routingComponents = [LoginComponent, AdminListViewComponent, AdminListViewRolesComponent, ShiftsManagementComponent]

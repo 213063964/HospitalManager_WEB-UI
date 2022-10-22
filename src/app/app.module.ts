@@ -14,10 +14,6 @@ import { AdminListViewRolesComponent } from './admin-list-view-roles/admin-list-
 
 import { ShiftsManagementComponent } from './shifts-management/shifts-management.component';
 
-const routes : Routes = [
-  { path: 'shifts-management', component: ShiftsManagementComponent },
-];
-
 
 @NgModule({
   declarations: [
@@ -32,7 +28,6 @@ const routes : Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
-    [RouterModule.forRoot(routes)],
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
