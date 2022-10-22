@@ -82,7 +82,6 @@ export class ShiftsManagementComponent implements OnInit {
     {
       next: (response) => this.employeesDatabase = response,
       error: (error) => this.toastrUtil.showToastrError(error, "Get request failed"),
-      complete: () => this.toastrUtil.showToastrInfo("Request successful", "")
     });
     setTimeout(() => { 
       this.setShiftEmployees();
@@ -94,7 +93,6 @@ export class ShiftsManagementComponent implements OnInit {
     this.shiftService.addShift(shift).subscribe(
     {
       error: (error) => this.toastrUtil.showToastrError(error, "Saving Error"),
-      complete: () => this.toastrUtil.showToastrInfo("Save Request successful!", "")
     });
   }
 

@@ -23,11 +23,23 @@ export class LoginComponent implements OnInit {
   }
 
 
-  public onReadEmployee(employeeId: string): void {
+  public onReadEmployeeA(employeeId: string): void {
     this.employeeService.readEmployee(employeeId).subscribe(
       (response: Employee) => {
         this.loginEmployee = response;
         this.validateEmployeeAdmin(this.loginEmployee);
+      },
+      (error: HttpErrorResponse) => {
+        this.showToastr();
+      }
+    )
+  }
+
+  public onReadEmployeeU(employeeId: string): void {
+    this.employeeService.readEmployee(employeeId).subscribe(
+      (response: Employee) => {
+        this.loginEmployee = response;
+        this.validateEmployeeUser(this.loginEmployee);
       },
       (error: HttpErrorResponse) => {
         this.showToastr();
@@ -44,6 +56,16 @@ export class LoginComponent implements OnInit {
         this.showToastr();
       }
 
+  }
+
+  public validateEmployeeUser(employeeV2: Employee): void{
+    if (employeeV2.role.roleName !== 'Admin' && employeeV2.employeeId === this.employeeId && employeeV2.password === this.password) {
+      this.routerLinkLogin = "/user-list-wards";
+      document.getElementById("user-login").click();
+    }else{
+      this.routerLinkLogin = "/login";
+      this.showToastr();
+    }
   }
 
   showToastr(){

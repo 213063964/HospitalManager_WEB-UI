@@ -3,20 +3,20 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule, routingComponents } from "./app-routing.module";
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule, Routes } from '@angular/router'; 
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from "@angular/forms";
+import { ToastrModule } from "ngx-toastr";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { LoginComponent } from './login/login.component';
 import { AdminListViewComponent } from './admin-list-view/admin-list-view.component';
 import { AdminNavComponent } from './admin-nav/admin-nav.component';
 import { AdminListViewRolesComponent } from './admin-list-view-roles/admin-list-view-roles.component';
-
 import { ShiftsManagementComponent } from './shifts-management/shifts-management.component';
-import { UserListViewComponent } from './user-list-view/user-list-view.component';
+import { PatientUserInterfaceComponent } from "./patient-user-interface/patient-user-interface.component";
+import { AddressUserInterfaceComponent } from "./address-user-interface/address-user-interface.component";
+import { WardListViewComponent } from './ward-list-view/ward-list-view.component';
 import { UserNavComponent } from './user-nav/user-nav.component';
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -27,7 +27,9 @@ import { ToastrModule} from "ngx-toastr";
     LoginComponent,
     AdminListViewComponent,
     AdminListViewRolesComponent,
-    UserListViewComponent,
+    PatientUserInterfaceComponent,
+    AddressUserInterfaceComponent,
+    WardListViewComponent,
     UserNavComponent,
   ],
   imports: [
@@ -42,7 +44,8 @@ import { ToastrModule} from "ngx-toastr";
       progressAnimation: "increasing",
       preventDuplicates: true,
       timeOut: 3000
-    })
+    }),
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

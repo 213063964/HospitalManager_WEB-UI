@@ -6,10 +6,10 @@ import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-user-list-view',
-  templateUrl: './user-list-view.component.html',
-  styleUrls: ['./user-list-view.component.css']
+  templateUrl: './ward-list-view.component.html',
+  styleUrls: ['./ward-list-view.component.css']
 })
-export class UserListViewComponent implements OnInit {
+export class WardListViewComponent implements OnInit {
 
   public ward: Ward[];
   public editWard: Ward;
