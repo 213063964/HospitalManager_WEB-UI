@@ -81,15 +81,14 @@ export class PatientUserInterfaceComponent implements OnInit {
   }
 
   public onUpdatePatient(editPatientForm: NgForm): void {
-    // document.getElementById('updated-role-close-button').click();
-    // this.roleService.addRole(editEmployeeForm.value).subscribe(
-    //   (response: Role) => {
-    //     this.getRoles();
-    //   },
-    //   (error: HttpErrorResponse) => {
-    //     alert(error.message)
-    //   }
-    // );
+    document.getElementById('updated-patient-close-button').click();
+    this.patientService.addPatient(editPatientForm.value).subscribe(
+      (response: Patient) => {
+        this.getPatients();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message)
+      }
+    );
   }
-
 }

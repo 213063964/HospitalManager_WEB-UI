@@ -1,0 +1,11 @@
+.wrapper{
+    padding: 2% 10%;
+}
+
+#createShiftBtnId{
+    margin-bottom: 1%;
+}
+
+.modal{
+    display: none;
+}
