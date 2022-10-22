@@ -93,9 +93,8 @@ export class ShiftsManagementComponent implements OnInit {
   {
     this.shiftService.addShift(shift).subscribe(
     {
-      next: (response) => console.log(response),
-      error: (error) => console.error(error),
-      complete: () => console.info("Save Request successful!")
+      error: (error) => this.toastrUtil.showToastrError(error, "Saving Error"),
+      complete: () => this.toastrUtil.showToastrInfo("Save Request successful!", "")
     });
   }
 
@@ -103,9 +102,7 @@ export class ShiftsManagementComponent implements OnInit {
   {
     this.shiftService.removeShift(shiftId).subscribe(
       {
-        next: (response) => console.log(response),
-        error: (error) => console.error(error),
-        complete: () => console.info("Delete Request successful!")
+        error: (error) => this.toastrUtil.showToastrError(error, "Deletion Error")
       });
   }
 
@@ -114,12 +111,10 @@ export class ShiftsManagementComponent implements OnInit {
     this.shiftsForm.patchValue({
       employees: this.employeesDatabase ?? null
     });
-    //this.employees = this.shift.shiftEmployees;
   }
 
   submitShift()
   {
-    //this.shift.shiftId = this.shifts.length + 1;
     this.shift.shiftStartTime = this.shiftsForm.value.shiftStartTime;
     this.shift.shiftEndTime = this.shiftsForm.value.shiftEndTime;
     this.shift.shiftType = this.shiftsForm.value.shiftType;
@@ -154,7 +149,6 @@ export class ShiftsManagementComponent implements OnInit {
 
   pickShiftEmployee(employee: Employee, location: string)
   {
-    console.log(location);
     let selection: any = document.getElementById("selectedShiftEmployeeId");
     if(this.isEmployeeInShiftList(employee))
     {
@@ -233,7 +227,6 @@ export class ShiftsManagementComponent implements OnInit {
   private isEmployeeInShiftList(employee: Employee)
   {
     let doesExist = false;
-    console.log(this.employeesInList);
     this.employeesInList.forEach(employeeId => {
       if(employeeId === employee.employeeId) doesExist = true;
     });
