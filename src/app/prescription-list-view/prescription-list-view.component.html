@@ -1,0 +1,119 @@
+<app-user-nav></app-user-nav>
+
+<div class="container pt-4" id="main-container-prescription">
+  <button type="button" class="btn btn-success" (click)="onOpenModalPrescriptions(null, 'add')">Add new</button>
+  <hr>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Prescription Id</th>
+      <th scope="col">Medication </th>
+      <th scope="col">Patient</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let prescription of prescription; let i = index">
+      <th scope="row">{{i + 1}}</th>
+      <td><span class="link-primary" prescription="button" (click)="onOpenModalPrescriptions(prescription, 'edit')">{{ prescription.prescriptionId }}</span>
+      </td>
+      <td>{{ prescription.medicationId }}</td>
+      <td>{{ prescription.patientId }}</td>
+      <td>
+        <button type="button" class="btn btn-danger" (click)="onOpenModalPrescriptions(prescription, 'delete')">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!--ADD PRESCRIPTION MODAL-->
+<div class="modal" tabindex="-1" id="addPrescriptionModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add a prescription</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #addForm="ngForm" (ngSubmit)="onAddPrescription(addForm)">
+          <div class="mb-3">
+            <label for="prescriptionId" class="form-label">Prescription ID</label>
+            <input type="text" ngModel name="prescriptionId" class="form-control" id="prescriptionId" aria-describedby="basic-addon1" required>
+          </div>
+          <div class="mb-3">
+            <label for="medicationId" class="form-label">Medication ID</label>
+            <input type="text" ngModel name="medicationId" class="form-control" id="medicationId" aria-describedby="basic-addon1" required>
+          </div>
+          <div class="mb-3">
+            <label for="patientId" class="form-label">Patient ID</label>
+            <input type="text" ngModel name="patientId" class="form-control" id="patientId" aria-describedby="basic-addon1" required>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="prescription-close-button">Close
+            </button>
+            <button [disabled]="addForm.form.invalid" type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--DELETE PRESCRIPTION MODAL-->
+<div class="modal" tabindex="-1" id="deletePrescriptionModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete prescription</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete prescription: {{ deletePrescription?.prescriptionId }}?</p>
+        <form>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="delete-modal-close">Close</button>
+            <button type="button" class="btn btn-primary" (click)="onDeletePrescription(deletePrescription?.prescriptionId)">Delete</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--EDIT or UPDATE PRESCRIPTION MODAL-->
+<div class="modal" tabindex="-1" id="editPrescriptionModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update prescription: {{ editPrescription?.prescriptionId }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #editForm="ngForm" (ngSubmit)="onUpdatePrescription(editForm)">
+          <div class="mb-3">
+            <label for="prescriptionId" class="form-label">Prescription ID</label>
+            <input type="text" ngModel="{{ editPrescription?.prescriptionId}}" name="prescriptionId" class="form-control" id="updatedPrescriptionId"
+                   aria-describedby="basic-addon1" required readonly>
+          </div>
+          <div class="mb-3">
+            <label for="medicationId" class="form-label">Medication Name</label>
+            <input type="text" ngModel="{{ editPrescription?.medicationId}}" name="medicationId class="form-control"
+                   id="updatedPrescriptionName" aria-describedby="basic-addon1" required>
+          </div>
+          <div class="mb-3">
+            <label for="patientId" class="form-label">Prescription Description</label>
+            <input type="text" ngModel="{{ editPrescription?.patientId}}" name="patientId" class="form-control"
+                   id="updatedPrescriptionDescription" aria-describedby="basic-addon1" required>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="updated-prescription-close-button">
+              Close
+            </button>
+            <button [disabled]="editForm.form.invalid" type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
