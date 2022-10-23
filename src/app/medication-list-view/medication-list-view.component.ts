@@ -5,7 +5,7 @@ import {MedicationService} from "../services/medication.service";
 import {NgForm} from "@angular/forms";
 
 @Component({
-  selector: 'app-user-list-view',
+  selector: 'medication-list-view',
   templateUrl: './medication-list-view.component.html',
   styleUrls: ['./medication-list-view.component.css']
 })
@@ -60,7 +60,7 @@ export class MedicationListViewComponent implements OnInit {
     }
     if (mode === 'delete') {
       this.deleteMedication = medication;
-      buttonWard.setAttribute("data-bs-target", '#deleteMedicationModal');
+      buttonMedication.setAttribute("data-bs-target", '#deleteMedicationModal');
     }
 
     container.appendChild(buttonMedication);

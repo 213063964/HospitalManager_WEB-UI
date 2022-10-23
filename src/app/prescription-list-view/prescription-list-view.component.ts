@@ -5,7 +5,7 @@ import {PrescriptionService} from "../services/prescription.service";
 import {NgForm} from "@angular/forms";
 
 @Component({
-  selector: 'app-user-list-view',
+  selector: 'prescription-list-view',
   templateUrl: './prescription-list-view.component.html',
   styleUrls: ['./prescription-list-view.component.css']
 })

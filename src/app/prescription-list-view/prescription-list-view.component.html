@@ -15,7 +15,7 @@
     <tbody>
     <tr *ngFor="let prescription of prescription; let i = index">
       <th scope="row">{{i + 1}}</th>
-      <td><span class="link-primary" prescription="button" (click)="onOpenModalPrescriptions(prescription, 'edit')">{{ prescription.prescriptionId }}</span>
+      <td><span class="link-primary" role="button" (click)="onOpenModalPrescriptions(prescription, 'edit')">{{ prescription.prescriptionId }}</span>
       </td>
       <td>{{ prescription.medicationId }}</td>
       <td>{{ prescription.patientId }}</td>
@@ -98,7 +98,7 @@
           </div>
           <div class="mb-3">
             <label for="medicationId" class="form-label">Medication Name</label>
-            <input type="text" ngModel="{{ editPrescription?.medicationId}}" name="medicationId class="form-control"
+            <input type="text" ngModel="{{ editPrescription?.medicationId}}" name="medicationId" class="form-control"
                    id="updatedPrescriptionName" aria-describedby="basic-addon1" required>
           </div>
           <div class="mb-3">

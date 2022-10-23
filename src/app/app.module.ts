@@ -9,11 +9,15 @@ import {HttpClientModule} from "@angular/common/http";
 import { AdminListViewRolesComponent } from './admin-list-view-roles/admin-list-view-roles.component';
 import {PatientUserInterfaceComponent} from "./patient-user-interface/patient-user-interface.component";
 import {AddressUserInterfaceComponent} from "./address-user-interface/address-user-interface.component";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { WardListViewComponent } from './ward-list-view/ward-list-view.component';
 import { UserNavComponent } from './user-nav/user-nav.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule} from "ngx-toastr";
+import {AppointmentComponent} from "./appointment-user-interface/appointment.component";
+import {ShiftsManagementComponent} from "./shifts-management/shifts-management.component";
+import {MedicationListViewComponent} from "./medication-list-view/medication-list-view.component";
+import {PrescriptionListViewComponent} from "./prescription-list-view/prescription-list-view.component";
 
 
 
@@ -25,12 +29,14 @@ import { ToastrModule} from "ngx-toastr";
     LoginComponent,
     AdminListViewComponent,
     AdminListViewRolesComponent,
-
+    AppointmentComponent,
     PatientUserInterfaceComponent,
     AddressUserInterfaceComponent,
-
+    ShiftsManagementComponent,
     WardListViewComponent,
     UserNavComponent,
+    MedicationListViewComponent,
+    PrescriptionListViewComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +44,7 @@ import { ToastrModule} from "ngx-toastr";
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-center',
       progressBar: true,

@@ -1,7 +1,7 @@
 <app-user-nav></app-user-nav>
 
 <div class="container pt-4" id="main-container-medication">
-  <button type="button" class="btn btn-success" (click)="onOpenModalMedication(null, 'add')">Add new</button>
+  <button type="button" class="btn btn-success" (click)="onOpenModalMedications(null, 'add')">Add new</button>
   <hr>
   <table class="table">
     <thead>
@@ -15,7 +15,7 @@
     <tbody>
     <tr *ngFor="let medication of medication; let i = index">
       <th scope="row">{{i + 1}}</th>
-      <td><span class="link-primary" medication="button" (click)="onOpenModalMedications(medication, 'edit')">{{ medication.medicationId }}</span>
+      <td><span class="link-primary" role="button" (click)="onOpenModalMedications(medication, 'edit')">{{ medication.medicationId }}</span>
       </td>
       <td>{{ medication.medicationName }}</td>
       <td>{{ medication.medicationDescription }}</td>
@@ -74,7 +74,7 @@
         <form>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="delete-modal-close">Close</button>
-            <button type="button" class="btn btn-primary" (click)="onDeleteMedication(deleteWard?.medicationId)">Delete</button>
+            <button type="button" class="btn btn-primary" (click)="onDeleteMedication(deleteMedication?.medicationId)">Delete</button>
           </div>
         </form>
       </div>

@@ -14,7 +14,7 @@ export class MedicationService {
   constructor(private http: HttpClient) { }
 
   public getMedications(): Observable<Medication[]> {
-    return this.http.get<Medication[]>(`${this.apiServerUrl}medication/find-all`)
+    return this.http.get<Medication[]>(`${this.apiServerUrl}medication/read-all`)
   }
 
   public addMedication(medication: Medication): Observable<Medication> {
